@@ -1,0 +1,117 @@
+<!-- /templates/customers/login.liquid -->
+<div class="main-content" id="skip-to-content">
+	<div class="container" role="main">
+      <h1>Login <span class="icon icon-x" aria-hidden="true"></span> Create Account</h1>
+		<div class="login-wrapper">
+          <h2>Login</h2>
+          <p>Proud member of the Apex family.</p>
+          {% form 'customer_login' %}
+
+            {{ form.errors | default_errors }}
+			<div class="item">
+            	<label for="CustomerEmail" class="hidden-label left">{{ 'customer.login.email' | t }}<span class="required">*</span></label>
+            	<input type="email" name="customer[email]" id="CustomerEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}"  autocorrect="off" autocapitalize="off" autofocus required>
+         	 </div>
+            {% if form.password_needed %}
+          		<div class="item">
+              		<label for="CustomerPassword" class="hidden-label left">{{ 'customer.login.password' | t }}<span class="required">*</span></label>
+              		<input type="password" value="" name="customer[password]" id="CustomerPassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" required>
+         		 </div>
+            {% endif %}
+
+            <div class="item">
+              <input type="submit" class="btn btn--full" value="Login">
+            </div>
+           {% comment %}{{ 'customer.login.sign_in' | t }} <p>{{ 'layout.customer.create_account' | t | customer_register_link }}</p>
+            <p><a href="{{ shop.url }}">{{ 'customer.login.cancel' | t }}</a></p>{% endcomment %}
+            {% if form.password_needed %}
+              <p><br/><a href="#recover" onclick="showRecoverPasswordForm()" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a></p>
+            {% endif %}
+          {% endform %}
+          {% comment %}
+              Recover Password Form
+            {% endcomment %}
+
+            <div id="recover-password" style='display:none'>
+              <h2>Reset Password</h2>
+              <p class="note">We will send you an email to reset your password.</p>
+
+              {% form 'recover_customer_password' %}
+                {{ form.errors | default_errors }}
+				<div class="item item-reset">
+                <div id="recover_email" class="clearfix large_form">
+                  <label for="email" class="large">Email<span class="required">*</span></label>
+                  <input type="email" value="" size="30" name="email" id="recover-email" class="large" />
+                </div>
+                <div class="action_bottom">
+                  <input class="btn" type="submit" value="Submit" />
+                  <p class="note"><br/>or<br/><a href="#" onclick="hideRecoverPasswordForm()">Cancel</a></p>
+                  </div></div>
+              {% endform %}
+            </div>
+     	 </div>
+      	<div class="create-account-wrapper">
+          <h2>NEW Account</h2>
+          <p>New to Apex</p>
+           {% form 'create_customer' %}
+
+              {{ form.errors | default_errors }}
+
+              <div class="item">
+                <label for="FirstName" class="hidden-label left">{{ 'customer.register.first_name' | t }}<span class="required">*</span></label>
+              	<input type="text" name="customer[first_name]" id="FirstName" class="input-full" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus required>
+           	  </div>
+				<div class="item">
+              <label for="LastName" class="hidden-label left">{{ 'customer.register.last_name' | t }}<span class="required">*</span></label>
+              <input type="text" name="customer[last_name]" id="LastName" class="input-full" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words" required>
+                </div><div class="item">
+              <label for="Email" class="hidden-label left">{{ 'customer.register.email' | t }}<span class="required">*</span></label>
+              <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off" required>
+                </div>
+          <div class="clear"></div>
+          <div class="item">
+              <label for="CreatePassword" class="hidden-label left">{{ 'customer.register.password' | t }}<span class="required">*</span></label>
+              <input type="password" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" required>
+                </div>
+         	 <div class="item">
+              <label for="CreatePassword" class="hidden-label left">Confirm password<span class="required">*</span></label>
+              
+          		<input type="password" value="" name="customer[password_confirmation]" id="password-confirm" required>
+              <span style="color:red; padding-top:10px" class="password-match">PASSWORDS DO NOT MATCH</span>
+          </div><div class="item">
+                <input type="submit" value="Register" class="btn btn--full">
+              </div>
+          <p><br/><a href="{{ shop.url }}">{{ 'customer.register.cancel' | t }}</a></p>
+            {% endform %}
+      	</div> 
+     </div>
+</div>
+
+
+
+<script type="text/javascript">
+  function showRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'inline-block';
+   // document.getElementById('customer').style.display='none';
+    return false;
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'none';
+   // document.getElementById('customer').style.display = 'inline-block';
+    return false;
+  }
+
+  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+  $('.password-match').hide();
+  $('form#create_customer').submit(function(e) {
+  if ( $('#CreatePassword').val() != $('#password-confirm').val()) {
+     $('.password-match').fadeIn("slow");
+    e.preventDefault(); // stops our form from submitting
+  } 
+});
+  
+ $("#create_customer").validate(); 
+ $("#customer_login").validate();
+ $("#recover_password").validate(); 
+</script>

@@ -1,0 +1,371 @@
+<section class="hero">
+ <div class="aspect-ratio-2-1"></div>
+  <!--video class="jquery-background-video" autoplay muted loop poster="" width="100%" height="100%" controls>
+    <source src="https://cdn.shopify.com/s/files/1/0014/7115/2237/files/apex-home-video.mp4?6130361115147865448" type="video/mp4">
+  </video-->
+  <div class="content featured-area">
+    <div class="container">
+      <div class="headline">
+        <h1>{{ section.settings.slide_home_text}}</h1>
+        <p class="slide_home_text_content">{{ section.settings.slide_home_text_content }}</p>
+
+      </div>
+      <div class="headline-bottom">
+        <div class="logo-bottom">
+          <ul class="awards-wrapper">
+          {% for block in section.blocks %}
+             <li class="award">
+               <a href="{{ block.settings.slide_link}}" class="award-image">
+                 <img src="{{ block.settings.image | img_url: '300x' }}"></a>
+             </li>
+            {% endfor %}
+        </ul>
+        </div>
+        <div class="award-bottom">
+          <h1>OFFICIAL SUPPLIER</h1>
+          <ul class="awards-wrapper">
+              <li class="award">
+                <a href="#" class="award-image">
+                  <img src="{{ 'logo-right2.png' | asset_img_url: '300x' }}"></a>
+              </li>
+              <li class="award">
+                <a href="#" class="award-image">
+                  <img src="{{ 'logo-right1.png' | asset_img_url: '300x' }}"></a>
+              </li>
+           </ul>
+        </div>  
+      </div>
+    </div>
+  </div> 
+ <ul class="myths-bg">
+   {{section.settings.slide_home_button_links}}
+  </ul>
+</section>  
+{% schema %}
+  {
+    "name": {
+      "pt-BR": "Apresentação de slides",
+      "es": "Diapositivas",
+      "de": "Slideshow",
+      "it": "Presentazione",
+      "en": "Slideshow",
+      "ja": "スライドショー",
+      "fr": "Diaporama"
+    },
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "hero_home_auto",
+        "label": {
+          "pt-BR": "Rodar automaticamente entre slides",
+          "es": "Rotar automáticamente entre diapositivas",
+          "de": "Automatisch zwischen Folien rotieren",
+          "it": "Transizione automatica delle slide",
+          "en": "Auto rotate between slides",
+          "ja": "スライドの自動切り替え",
+          "fr": "Rotation automatique entre les diapositives"
+        },
+        "default": true
+      },
+      {
+         "type": "textarea",
+         "id": "slide_home_text",
+         "default": "Slide home text!",
+         "label": "Slide home text!"
+      },
+       {
+         "type": "textarea",
+         "id": "slide_home_text_content",
+         "default": "Slide home text!",
+         "label": "Slide content"
+      },
+
+       {
+        "type": "image_picker",
+        "id": "imagemiddle",
+        "label": {
+          "en": "Image Middle"
+        }
+      },
+      {
+			"type": "url",
+			"id": "imagemiddlelink",
+			"label": {
+			  "en": "Image link Pre"			  
+			}
+		  },
+	  {
+         "type": "textarea",
+         "id": "slide_home_button_links",
+         "default": "Slide home Button Links!",
+         "label": "Slide home Button Links!"
+      },
+      {
+        "type": "select",
+        "id": "home_hero_auto_speed",
+        "label": {
+          "pt-BR": "O slide muda a cada",
+          "es": "La diapositiva cambia cada",
+          "de": "Anzeige der nächsten Folie alle",
+          "it": "La slide cambia ogni",
+          "en": "Slide changes every",
+          "ja": "スライド変更の頻度",
+          "fr": "La diapositive change toutes les"
+        },
+        "options": [
+          {
+            "value": "5000",
+            "label": {
+              "pt-BR": "5 segundos",
+              "es": "5 segundos",
+              "de": "5 Sekunden",
+              "it": "5 secondi",
+              "en": "5 seconds",
+              "ja": "5秒",
+              "fr": "5 secondes"
+            }
+          },
+          {
+            "value": "7000",
+            "label": {
+              "pt-BR": "7 segundos",
+              "es": "7 segundos",
+              "de": "7 Sekunden",
+              "it": "7 secondi",
+              "en": "7 seconds",
+              "ja": "7秒",
+              "fr": "7 secondes"
+            }
+          },
+          {
+            "value": "10000",
+            "label": {
+              "pt-BR": "10 segundos",
+              "es": "10 segundos",
+              "de": "10 Sekunden",
+              "it": "10 secondi",
+              "en": "10 seconds",
+              "ja": "10秒",
+              "fr": "10 secondes"
+            }
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "slide_text_color",
+        "label": {
+          "pt-BR": "Texto",
+          "es": "texto",
+          "de": "Text",
+          "it": "Testo",
+          "en": "Text",
+          "ja": "テキスト",
+          "fr": "Texte"
+        },
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "slide_button_label_color",
+        "label": {
+          "pt-BR": "Etiqueta do botão",
+          "es": "Etiqueta de botón",
+          "de": "Schaltflächenbezeichnung",
+          "it": "Etichetta pulsante",
+          "en": "Button label",
+          "ja": "ボタンラベル",
+          "fr": "Texte du bouton"
+        },
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "slide_button_background_color",
+        "label": {
+          "pt-BR": "Botão",
+          "es": "Botón",
+          "de": "Schaltfläche",
+          "it": "Pulsante",
+          "en": "Button",
+          "ja": "ボタン",
+          "fr": "Bouton"
+        },
+        "default": "#ffffff"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": {
+          "pt-BR": "Slide",
+          "es": "Diapositiva",
+          "de": "Folie",
+          "it": "Slide",
+          "en": "Slide",
+          "ja": "スライド",
+          "fr": "Diapositive"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": {
+              "pt-BR": "Imagem",
+              "es": "Imagen",
+              "de": "Bild",
+              "it": "Immagine",
+              "en": "Image",
+              "ja": "画像",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "header",
+            "content": {
+              "pt-BR": "Sobreposição",
+              "es": "Superposición",
+              "de": "Overlay",
+              "it": "Sovrapposizione",
+              "en": "Overlay",
+              "ja": "オーバーレイ",
+              "fr": "Superposition"
+            }
+          },
+          {
+            "type": "color",
+            "id": "color_image_overlay",
+            "label": {
+              "pt-BR": "Sobreposição",
+              "es": "Superposición",
+              "de": "Overlay",
+              "it": "Sovrapposizione",
+              "en": "Overlay",
+              "ja": "オーバーレイ",
+              "fr": "Superposition"
+            },
+            "default": "#3d4246"
+          },
+          {
+            "type": "range",
+            "id": "image_overlay_opacity",
+            "label": {
+              "pt-BR": "Opacidade",
+              "es": "Opacidad",
+              "de": "Opazität",
+              "it": "Opacità",
+              "en": "Opacity",
+              "ja": "不透過率",
+              "fr": "Opacité"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": {
+              "pt-BR": "%",
+              "es": "%",
+              "de": "%",
+              "it": "%",
+              "en": "%",
+              "ja": "%",
+              "fr": "%"
+            },
+            "default": 25
+          },
+          {
+            "type": "header",
+            "content": {
+              "pt-BR": "Texto",
+              "es": "texto",
+              "de": "Text",
+              "it": "Testo",
+              "en": "Text",
+              "ja": "テキスト",
+              "fr": "Texte"
+            }
+          },
+          {
+            "type": "textarea",
+            "id": "slide_subheading",
+            "label": {
+              "pt-BR": "Texto do subtítulo",
+              "es": "Texto del subtítulo",
+              "de": "Untertiteltext",
+              "it": "Testo del sottotitolo",
+              "en": "Subheading text",
+              "ja": "小見出しテキスト",
+              "fr": "Texte du sous-titre"
+            },
+            "default": {
+              "pt-BR": "Uma introdução",
+              "es": "Frase introductoria",
+              "de": "Für den Einstieg:",
+              "it": "Come introduzione",
+              "en": "An introductory",
+              "ja": "紹介",
+              "fr": "Introduction"
+            }
+          },
+          {
+            "type": "textarea",
+            "id": "slide_heading",
+            "label": {
+              "pt-BR": "Texto do título",
+              "es": "Texto del encabezado",
+              "de": "Überschriftentext",
+              "it": "Testo del titolo",
+              "en": "Heading text",
+              "ja": "見出しテキスト",
+              "fr": "Texte du titre"
+            },
+            "default": {
+              "pt-BR": "Banner do Hero",
+              "es": "Banner destacado",
+              "de": "Hero-Banner",
+              "it": "Banner hero",
+              "en": "Hero Banner",
+              "ja": "ヒーローバナー",
+              "fr": "Bannière de premier plan"
+            }
+          },
+          {
+            "type": "text",
+            "id": "slide_cta",
+            "label": {
+              "pt-BR": "Texto do botão",
+              "es": "Botón de texto",
+              "de": "Schaltflächentext",
+              "it": "Testo pulsante",
+              "en": "Button text",
+              "ja": "ボタンテキスト",
+              "fr": "Texte du bouton"
+            },
+            "default": {
+              "pt-BR": "Compre agora",
+              "es": "Compra ya",
+              "de": "Jetzt shoppen",
+              "it": "Acquista ora",
+              "en": "Shop now",
+              "ja": "今すぐ購入",
+              "fr": "Acheter maintenant"
+            }
+          },
+          {
+            "type": "url",
+            "id": "slide_link",
+            "label": {
+              "pt-BR": "Link do slide",
+              "es": "Enlace de la diapositiva",
+              "de": "Folienlink",
+              "it": "Link slide",
+              "en": "Slide link",
+              "ja": "スライドリンク",
+              "fr": "Lien de diapositive"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

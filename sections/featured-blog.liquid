@@ -1,0 +1,252 @@
+<div class="featured-blog featured-blog--{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="wrapper">
+
+    {%- assign blog = blogs[section.settings.blog] -%}
+
+    {% case section.settings.post_limit %}
+      {% when 3 %}
+        {%- assign width = 'small--one-whole medium--one-half large--one-third' -%}
+      {% when 2 %}
+        {%- assign width = 'small--one-whole medium--one-half large--one-half' -%}
+      {% when 1 %}
+        {% if section.settings.blog_show_image %}
+          {%- assign width = 'small--one-whole medium--one-half large--one-half' -%}
+        {% else %}
+          {%- assign width = 'text-center large--four-fifths push--large--one-tenth' -%}
+        {% endif %}
+      {% else %}
+        {%- assign width = 'small--one-whole medium--one-half large--one-third' -%}
+    {% endcase %}
+
+    {% if section.settings.title != blank %}
+      <div class="section-header text-center">
+        <h2 class="h1 section-header__title">{{ section.settings.title | escape }}</h2>
+        <hr class="hr--small">
+      </div>
+    {% endif %}
+
+    {% unless blog.articles_count == 0 %}
+      <div class="grid-uniform">
+        {% for article in blog.articles limit: section.settings.post_limit %}
+          <div class="grid__item {{ width }}">
+            <div class="featured-blog__post">
+
+              {% if section.settings.blog_show_image %}
+                {% unless article.image == blank %}
+                  <a class="article__featured-image-link" href="{{ article.url }}">
+                    <noscript>
+                      {{ article.image | img_url: '1024x1024' | img_tag: article.title | escape }}
+                    </noscript>
+                    <div class="article__featured-image-wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+                      {% assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                      <img class="article__featured-image lazyload"
+                        src="{{ article.image | img_url: '300x300' }}"
+                        data-src="{{ img_url }}"
+                        data-widths="[310, 360, 480, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                        data-aspectratio="{{ article.image.aspect_ratio }}"
+                        data-sizes="auto"
+                        alt="{{ article.title | escape }}">
+                    </div>
+                  </a>
+                {% endunless %}
+              {% endif %}
+
+              {% unless section.settings.post_limit == 1 and section.settings.blog_show_image %}
+                {% include 'featured-blog', article: article %}
+              {% endunless %}
+
+            </div>
+          </div>
+
+          {% if section.settings.post_limit == 1 and section.settings.blog_show_image %}
+            <div class="grid__item {{ width }}">
+              <div class="featured-blog__post">
+                 {% include 'featured-blog', article: article %}
+              </div>
+            </div>
+          {% endif %}
+
+        {% endfor %}
+      </div>
+
+    {% else %}
+      {% include 'onboarding-featured-blog' %}
+    {% endunless %}
+
+    {% if blog == empty %}
+      {% include 'onboarding-featured-blog' %}
+    {% endif %}
+
+    {% if section.settings.show_view_all %}
+      <div class="section-header text-center">
+        <a href="{{ blog.url }}" class="btn">
+          {{ 'blogs.article.view_all' | t }}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "pt-BR": "Posts do blog",
+      "es": "Entradas del blog",
+      "de": "Blog-Beiträge",
+      "it": "Articoli del blog",
+      "en": "Blog posts",
+      "ja": "ブログ記事",
+      "fr": "Articles de blog"
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "pt-BR": "Título",
+          "es": "Título",
+          "de": "Überschrift",
+          "it": "Heading",
+          "en": "Heading",
+          "ja": "見出し",
+          "fr": "Titre"
+        },
+        "default": {
+          "pt-BR": "Blog",
+          "es": "Blog",
+          "de": "Blog",
+          "it": "Blog",
+          "en": "Blog",
+          "ja": "ブログ",
+          "fr": "Blog"
+        }
+      },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": {
+          "pt-BR": "Blog",
+          "es": "Blog",
+          "de": "Blog",
+          "it": "Blog",
+          "en": "Blog",
+          "ja": "ブログ",
+          "fr": "Blog"
+        }
+      },
+      {
+        "type": "range",
+        "id": "post_limit",
+        "label": {
+          "pt-BR": "posts",
+          "es": "publicaciones",
+          "de": "Beiträge",
+          "it": "articoli",
+          "en": "Posts",
+          "ja": "投稿",
+          "fr": "Articles de blog"
+        },
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": {
+          "pt-BR": "Mostrar data",
+          "es": "Mostrar fecha",
+          "de": "Datum anzeigen",
+          "it": "Mostra data",
+          "en": "Show date",
+          "ja": "日付を表示する",
+          "fr": "Afficher la date"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": {
+          "pt-BR": "Mostrar autor",
+          "es": "Mostrar autor",
+          "de": "Verfasser anzeigen",
+          "it": "Mostra autore",
+          "en": "Show author",
+          "ja": "執筆者を表示する",
+          "fr": "Afficher l'auteur"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_image",
+        "label": {
+          "pt-BR": "Exibir imagem da capa",
+          "es": "Mostrar imagen de portada",
+          "de": "Titelbild anzeigen",
+          "it": "Mostra immagine di copertina",
+          "en": "Show cover image",
+          "ja": "表紙画像を表示する",
+          "fr": "Afficher l'image de couverture"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_excerpt",
+        "label": {
+          "pt-BR": "Exibir resumo",
+          "es": "Mostrar extracto",
+          "de": "Auszug anzeigen",
+          "it": "Mostra riassunto",
+          "en": "Show excerpt",
+          "ja": "抜粋を表示する",
+          "fr": "Afficher l'extrait"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": {
+          "pt-BR": "Exibir botão 'Visualizar tudo'",
+          "es": "Mostrar el botón 'Ver todo'",
+          "de": "Schaltfläche \"Alle anzeigen\" anzeigen",
+          "it": "Mostra il pulsante \"Visualizza tutto\"",
+          "en": "Show 'View all' button",
+          "ja": "「すべて表示」ボタンを表示する",
+          "fr": "Afficher le bouton « Tout afficher »"
+        },
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "pt-BR": "Posts do blog",
+          "es": "Entradas del blog",
+          "de": "Blog-Beiträge",
+          "it": "Articoli del blog",
+          "en": "Blog posts",
+          "ja": "ブログ記事",
+          "fr": "Articles de blog"
+        },
+        "category": {
+          "es": "Blog",
+          "de": "Blog",
+          "it": "Blog",
+          "en": "Blog",
+          "fr": "Blog",
+          "ja": "ブログ",
+          "pt-BR": "Blog"
+        },
+        "settings": {
+          "blog": "News"
+        }
+      }
+    ]
+  }
+{% endschema %}

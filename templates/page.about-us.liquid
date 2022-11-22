@@ -1,0 +1,23 @@
+<!-- /templates/page.liquid -->
+<div class="page-header" role="banner">
+  <img src="{{'Skier3_about_1920x460.jpg' | asset_img_url:'1920x460'}}">
+  <div class="container">
+    <div class="the-content">
+      <h1>About Apex Ski Boots</h1>
+    </div>
+  </div>
+</div>
+<nav class="section-nav">
+  <div class="container" role="navigation">
+    <label class="title trigger" for="menu-toggle">Sub Navigation</label>
+    <input id="menu-toggle" type="checkbox">
+    <ul class="sub">
+      <li class="here"><a href="/about">About Us</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="main-content" id="skip-to-content">
+  	<div class="container" role="main">
+    	{{page.content}}
+    </div>
+</div>

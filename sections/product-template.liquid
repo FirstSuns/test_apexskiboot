@@ -1,0 +1,1034 @@
+<!-- /templates/product.liquid -->
+<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+{% comment %}<meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">{% endcomment %}
+
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+    
+<div class ="products-wrapper">
+  <div class="container">
+    <div class="products thumbnails">
+      {% for product_all in collections.boots.products limit:2  %}
+       {% if product_all.title != product.title%}
+          <a href="{{product_all.url}}" data-toggle="tooltip" data-placement="bottom" data-original-title="{{product_all.title}}"><img src="{{ product_all.featured_image | product_img_url: '130x130'}}" alt="{{product_all.title}}"></a>
+      {% endif %}{% endfor %}
+
+      
+      <script type="text/javascript">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/SI30bWsG7sq5x11bEbrqi6ZKb5oVe9sOK7ZdZeUN/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})(); </script>
+    </div>
+  </div>
+</div>
+{% assign in_boots_collection = false %}
+				{% for collection in product.collections %}
+				  {% if in_boots_collection == false and collection.title == 'boots' %}
+					{% assign in_boots_collection = true %}
+				  {% endif %}
+				{% endfor %}
+				{% if in_boots_collection %}
+				<div class="main-content product-detail single-boot" id="skip-to-content">
+				 {% else %}
+				 <div class="main-content product-detail" id="skip-to-content">
+				{%endif%}
+  <div class="container" role="main">
+     {% form 'product', product, class:form_classes, id:form_id %}
+      <div class="hiddenFields">
+        <input name="2574_product_id" value="2574" type="hidden">
+        <input name="site_id" value="1" type="hidden">
+        <input name="csrf_token" value="924deb89e08158240b4316e4c0fc657ed6d83249" type="hidden">
+      </div>
+      <div class="product-detail">
+        <div class="gallery-wrapper sdsdsd">
+          {% comment %}
+		  <div class="product-single__photos">
+            {% capture img_id_class %}product-single__photo-{{ featured_image.id }}{% endcapture %}
+            {% capture wrapper_id %}ProductImageWrapper-{{ featured_image.id }}{% endcapture %}
+
+            {% comment %}
+              Display current variant image
+            {% endcomment %}
+            <div class="product-single__photo--flex-wrapper">
+              <div class="product-single__photo--flex">
+                {% include 'image-style' with image: featured_image, width: 575, height: 850, small_style: true, wrapper_id: wrapper_id, img_id_class: img_id_class %}
+                <div id="{{ wrapper_id }}" class="product-single__photo--container">
+                  <div class="product-single__photo-wrapper">
+                    {% assign img_url = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                    <img class="product-single__photo4 main lazyload {{ img_id_class }}"
+                      src="{{ featured_image | img_url: '360x360' }}"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 590, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                      data-aspectratio="{{ featured_image.aspect_ratio }}"
+                      data-sizes="auto"
+                      {% if section.settings.zoom_enable %}data-mfp-src="{{ featured_image | img_url: '1024x1024' }}"{% endif %}
+                      data-image-id="{{ featured_image.id }}"
+                      alt="{{ featured_image.alt | escape }}">
+
+                    <noscript>
+                      <img class="product-single__photo3 main"
+                        src="{{ featured_image | img_url: 'master' }}"
+                        {% if section.settings.zoom_enable %}data-mfp-src="{{ featured_image | img_url: '1024x1024' }}"{% endif %}
+                        alt="{{ featured_image.alt | escape }}" data-image-id="{{ featured_image.id }}">
+                    </noscript>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% comment %}
+              Display rest of product images, not repeating the featured one
+            {% endcomment %}
+           {% comment %} {% for image in product.images %}
+              {% unless image contains featured_image %}
+
+                {% comment %}
+                  We need to figure out the max width we want the image to be on the page
+                  based on the aspect ratio of the image and based on the size of the
+                  image.
+                {% endcomment %}
+                {% capture img_id_class %}product-single__photo-{{ image.id }}{% endcapture %}
+                {% capture wrapper_id %}ProductImageWrapper-{{ image.id }}{% endcapture %}
+
+                <div class="product-single__photo--flex-wrapper">
+                  <div class="product-single__photo--flex">
+                    {% include 'image-style' with image: image, width: 575, height: 850, small_style: true, wrapper_id: wrapper_id, img_id_class: img_id_class %}
+                    <div id="{{ wrapper_id }}" class="product-single__photo--container">
+                      <div class="product-single__photo-wrapper" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+                        {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                        <img class="product-single__photo2 main lazyload {{ img_id_class }}"
+                          src="{{ image | img_url: '300x' }}"
+                          data-src="{{ img_url }}"
+                          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                          data-aspectratio="{{ image.aspect_ratio }}"
+                          data-sizes="auto"
+                          {% if section.settings.zoom_enable %}data-mfp-src="{{ image.src | img_url: '1024x1024' }}"{% endif %}
+                          data-image-id="{{ image.id }}"
+                          alt="{{ image.alt | escape }}">
+
+                        <noscript>
+                          <img class="product-single__photo1 main" src="{{ image.src | img_url: 'master' }}"
+                            {% if section.settings.zoom_enable %}data-mfp-src="{{ image.src | img_url: '1024x1024' }}"{% endif %}
+                            alt="{{ image.alt | escape }}"
+                            data-image-id="{{ image.id }}">
+                        </noscript>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endunless %}
+            {% endfor %}{% endcomment %}
+          </div>{% endcomment %}
+          {% assign img_url = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img class="main" itemprop="image"  src="{{ featured_image | img_url: '360x360' }}" alt="{{ featured_image.alt | escape }}">
+          <div class="thumbnails-wrapper">
+           <h3>Gallery</h3>
+            <div class="the-gallery" data-pswp-uid="1">
+              {% comment %}
+              Display thumbnails
+			  
+              <figure><a class="" href="{{ featured_image | img_url: '2048x2048' }}" data-size="2048x1365"> <img class="main" itemprop="image"  src="{{ featured_image | img_url: '360x360' }}" alt="{{ featured_image.alt | escape }}">
+              </a><figcaption>{{product.title}}</figcaption></figure>{% endcomment %}
+               {% if product.id == 4841488941165 %}
+              {% for image in product.images %}
+              {% assign counter = counter | plus:1 %}
+                {% if product.images.size > 0 %}
+                 <figure><a class="thumb{{counter}}" href="{{ image.src | img_url: '2048x2048' }}" data-size="2048x1365">
+                      <img src="{{ image.src | img_url: '150x150' }}" alt="{{ product.title | escape }}">
+                    </a>
+               <figcaption>{{product.title}}</figcaption></figure>
+                {% endif %}
+              {% endfor %}
+				  {% else %}		
+              {% for image in product.images %}
+              {% assign counter = counter | plus:1 %}
+                {% if product.images.size > 0 %}
+                 <figure><a class="thumb{{counter}}" href="{{ image.src | img_url: '2048x2048' }}" data-size="1180x1180">
+                      <img src="{{ image.src | img_url: '150x150' }}" alt="{{ product.title | escape }}">
+                    </a>
+               <figcaption>{{product.title}}</figcaption></figure>
+                 {% endif %}
+              {% endfor %}
+			 
+{% endif %}
+            </div><!-- [END] the-gallery -->
+          </div><!-- [END] thumbnails-wrapper -->
+		  {% if product.id == 1382418350189 %}
+			<img src="https://cdn.shopify.com/s/files/1/0014/7115/2237/t/2/assets/Apex-Womens-boot2020.gif" />
+		 {% endif %}
+		 {% if product.id == 1404536782957 %}
+           <img src="https://cdn.shopify.com/s/files/1/0014/7115/2237/files/VS_ANIMATION.gif?v=1665119918" />
+        
+		 {% endif %}
+          
+          {% if product.id == 1382423134317 %}
+                       <img src="https://cdn.shopify.com/s/files/1/0014/7115/2237/files/Apex-Ladys-boot_step_out.gif?v=1665057839" />
+
+ 
+		 {% endif %}
+		  
+		  
+        </div><!-- [END] gallery-wrapper -->
+		
+        <div class="the-content" id="{{product.metafields.product.models}}">
+
+          <h1 itemprop="name"><span class="sku">{{product.title}}</span>
+            {% comment %}<span class="name">{{product.metafields.product.models}}</span>{% endcomment %}</h1>
+			<div class="yotpo bottomLine"
+                data-appkey="SI30bWsG7sq5x11bEbrqi6ZKb5oVe9sOK7ZdZeUN"
+                data-domain="{{shop.permanent_domain | escape }}"
+                data-product-id="{{ product.id }}"
+                data-product-models="{{ product.id }}"
+                data-name="{{ product.title | escape }}"
+                data-url="{{ shop.url }}{{ product.url }}"
+                data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+                data-description="{{ product.description | escape }}"
+                data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+
+{%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
+  {%- assign time_now = 'now' | date: '%s' %}
+  {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
+  {%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
+  {%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.bottomline_update_time | date: '%s' %}
+  {%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
+  {%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
+    {%- assign yotpo_bottomline_obsolete = false %}
+  {%- else %}
+    {%- assign yotpo_bottomline_obsolete = true %}
+  {%- endif %}
+  {%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
+    {{ product.metafields.yotpo.bottomline }}
+  {%- endif %}
+            </div>
+			{% if product.metafields.yotpo.reviews_count and product.metafields.yotpo.reviews_count != "0" %}
+             <div style="display:none;" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+             <span itemprop="itemReviewed">{{ product.title }}</span>
+             has a rating of <span itemprop="ratingValue">{{ product.metafields.yotpo.reviews_average }}</span> stars
+             based on <span itemprop="ratingCount">{{ product.metafields.yotpo.reviews_count }}</span> reviews.
+             </div>
+             {% endif %}
+			 <div class="custom_price_row">
+         	<div class="custom_price-label" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+             <div  data-price-container>
+              {% comment %}
+                Optionally show the 'compare at' or original price of the product.
+              
+
+              {% if current_variant.compare_at_price > current_variant.price %}
+                <span id="PriceA11y" class="visually-hidden" {% unless current_variant.available %}aria-hidden="true"{% endunless %}>{{ 'products.general.regular_price' | t }}</span>
+                <span class="product-single__price--wrapper" aria-hidden="false">
+                  <span id="ComparePrice" class="product-single__price--compare-at">
+                    {{ current_variant.compare_at_price | money }}
+                  </span>
+                </span>
+                <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="false">{{ 'products.general.sale_price' | t }}</span>
+              {% else %}
+                <span id="PriceA11y" class="visually-hidden" {% unless current_variant.available %}aria-hidden="true"{% endunless %}>{{ 'products.general.regular_price' | t }}</span>
+                <span class="product-single__price--wrapper hide" aria-hidden="true">
+                  <span id="ComparePrice" class="product-single__price--compare-at"></span>
+                </span>
+                <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="true">{{ 'products.general.sale_price' | t }}</span>
+              {% endif %}{% endcomment %}
+
+              <span id="ProductPrice"
+                class="product-single__price{% if current_variant.compare_at_price > current_variant.price %} on-sale{% endif %}"
+                {% unless current_variant.available %}aria-hidden="true"{% endunless %}>
+                <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+                <p itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}" class="price">{{ current_variant.price | money }}</p>
+                <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+              </span>
+            </div>
+          </div>
+          		{% assign in_boots_collection = false %}
+				{% for collection in product.collections %}
+				  {% if in_boots_collection == false and collection.title == 'boots' %}
+					{% assign in_boots_collection = true %}
+				  {% endif %}
+				{% endfor %}
+	{% comment %}			
+<div class="boots-klarna">				
+          <!-- Placement v2 -->
+<klarna-placement
+  data-key="credit-promotion-small"
+  data-locale="en-US"
+  data-purchase-amount="{{product.price}}"
+></klarna-placement>
+<!-- end Placement -->
+</div>
+{% endcomment %}
+
+{{ form | payment_terms }}
+
+               
+</div>
+			 
+			<div class="product_price_rating-left">
+			
+			
+			
+<div class="size-selector"><div style="display:block;" class="step three" id="step-three">
+              <h3><span></span> Add to cart</h3>
+              <div class="step-content">
+                <div class="item inline">
+                  <label for="2574_configurable_0">size</label>
+                  <div class="styled configurable">
+                    
+                     <select name="id" id="ProductSelect" class="required product-single__variants no-js">
+                        {% for variant in product.variants %}
+                          {% if variant.available %}
+                            <option {% if variant == product.selected_or_first_available_variant %}
+                              selected="selected" {% endif %}
+                              data-sku="{{ variant.sku }}"
+                              value="{{ variant.id }}">
+                              {{ variant.title }} - {{ variant.price | money_with_currency }}
+                            </option>
+                          {% else %}
+                            <option disabled="disabled">
+                              {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                            </option>
+                          {% endif %}
+                        {% endfor %}
+                      </select>
+                    </div>
+                </div></div>
+
+                <div class="item inline">
+                      <label for="Quantity" class="product-single__quantity-label js-quantity-selector">{{ 'products.product.quantity' | t }}</label>
+                      <input type="number"  id="Quantity" name="quantity" value="1" min="1" class="qty js-quantity-selector" onfocus="clearText(this);">
+                </div>
+
+                <p class="item button-wrapper"><input class="button" name="add to cart" value="Add To Cart" type="submit"></p><div class="item inline find-size">
+				{% assign in_boots_collection = false %}
+				{% for collection in product.collections %}
+				  {% if in_boots_collection == false and collection.title == 'boots' %}
+					{% assign in_boots_collection = true %}
+				  {% endif %}
+				{% endfor %}
+				{% if in_boots_collection %}
+              <a style="font-size: 18px;margin-top: 20px;text-decoration: underline;"href="https://www.apexskiboots.com/blogs/the-system/fit-room" >FIND MY SIZE</a><p>When in doubt, size up!</p>
+				{% endif %}
+				 </span></div>
+              </div>
+
+  {% comment %}
+            <!-- Placement v1
+          <klarna-placement
+            data-id="aa6fe539-1da7-4552-9faa-c8c00673f59c" 
+            data-purchase_amount="20"
+          ></klarna-placement>
+           end Placement -->
+           {% endcomment %}
+          </div>
+{% comment %}
+				<!-- Placement v2 -->
+				<klarna-placement
+				  data-key="credit-promotion-auto-size"
+				  data-locale="en-US"
+				  data-purchase-amount=""
+				></klarna-placement>
+				<!-- end Placement -->
+             {% endcomment %}
+				{% assign in_Apparel_collection = false %}
+				{% for collection in product.collections %}
+				 {% if in_Apparel_collection == false and collection.title == 'Apparel' %}
+					{% assign in_Apparel_collection = true %}
+				  {% endif %}
+				{% endfor %}
+				{% if in_Apparel_collection %}
+					<div itemprop="description" class="description">
+						{% if product.content %}
+						<p>{{product.content}}</p>
+						{% endif %}
+					</div>
+			{% endif %}
+          </div>
+		  <div class="size-selector-right">
+		   {% assign in_boots_collection = false %}
+				{% for collection in product.collections %}
+				  {% if in_boots_collection == false and collection.title == 'boots' %}
+					{% assign in_boots_collection = true %}
+				  {% endif %}
+				{% endfor %}
+				{% if in_boots_collection %}
+				<div class="next-day-ship"><img src="https://cdn.shopify.com/s/files/1/0014/7115/2237/files/FREE_SHIPPING_256x256_crop_center_69e552b7-1797-4298-88bc-4d4b785b690c_256x256_crop_center.png?v=1639395115" alt="FREE Shipping" width="180" height="133"></div>
+          <div class="hassle-free-sec"><img src="{{ 'hassle-free.png' | asset_url }}" alt="Hassle-Free Returns and Exchanges" width="180" height="133"></div>
+         <div class="next-day-ship"><img src="https://cdn.shopify.com/s/files/1/0014/7115/2237/files/next-day-shipping-2_256x256_crop_center.jpg?v=1639398050" alt="Next Day Shipping" width="180" height="133"></div>
+		 
+			{% endif %}
+       		</div>
+		  
+		  
+		  
+		  
+          <div class="share-widget">
+
+            <span class="st_sharethis_large"></span>
+            <span class="st_facebook_large"></span>
+            <span class="st_twitter_large"></span>
+            <span class="st_linkedin_large"></span>
+            <span class="st_pinterest_large"></span>
+
+            <span class="st_email_large"></span>
+          </div>
+			{% assign in_boots_collection = false %}
+				{% for collection in product.collections %}
+				 {% if in_boots_collection == false and collection.title == 'boots' %}
+					{% assign in_boots_collection = true %}
+				  {% endif %}
+				{% endfor %}
+    <div class="product_content_view">
+				{% if in_boots_collection %}
+					<div itemprop="description" class="description custom_description">
+						{% if product.content %}
+						{{product.content}}
+						{% endif %}
+					</div>
+			{% endif %}
+
+          <div class="the-details">
+            {% if product.metafields.product.Walkable-Boot %}
+              <h2>Walkable Boot</h2>
+              {{product.metafields.product.Walkable-Boot}}
+            {% endif %}
+            {% if product.metafields.product.Open-Chassis %}
+              <h2>Open-Chassis<sup>™</sup></h2>
+              {{product.metafields.product.Open-Chassis}}
+            {% endif %}
+            {% if product.metafields.product.Boot-Liner %}
+              <h2>Boot Liner</h2>
+              {{product.metafields.product.Boot-Liner}}
+            {% endif %}
+          </div>
+
+    </div>
+
+                  
+		 
+         <div class="size-selector">
+          <div class="sizing-chart-tables"> 
+            {% if  product.title  == 'BIG MOUNTAIN' or  product.title  == 'All-Mountain Performance' %}
+			<div class="sizing-chart">
+              <p>CALL US WITH ANY AND ALL SIZING QUESTIONS! <a class="tel" href="tel:303-530-3340">303-530-3340</a></p>
+              <h2>APEX SIZING CHARTS</h2>
+              <h3>MEN</h3><div class="sizing-chart-tb-cont">
+              <table>
+              <thead>
+              <tr>
+              <th>MONDO SIZE</th>
+              <th>CENTIMETERS</th>
+              <th>INCHES</th>
+              <th>SHOE SIZE<span>(average)</span></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>25</td>
+              <td>23.9 - 24.8</td>
+              <td>9 ¼ - 9 ¾</td>
+              <td>7</td>
+              </tr>
+              <tr>
+              <td>26</td>
+              <td>24.9 - 25.8</td>
+              <td>9⅞ - 10⅛</td>
+              <td>8</td>
+              </tr>
+              <tr>
+              <td>27</td>
+              <td>25.9 - 26.8</td>
+              <td>10¼ - 10½</td>
+              <td>9</td>
+              </tr>
+              <tr>
+              <td>28</td>
+              <td>26.9 - 27.8</td>
+              <td>10⅝ - 10⅞</td>
+              <td>10</td>
+              </tr>
+              <tr>
+              <td>29</td>
+              <td>27.9 - 28.8</td>
+              <td>11 - 11¼</td>
+              <td>11</td>
+              </tr>
+              <tr>
+              <td>30</td>
+              <td>28.9 - 29.8</td>
+              <td>11⅜ - 11⅝</td>
+              <td>12</td>
+              </tr>
+              <tr>
+              <td>31</td>
+              <td>29.9 - 30.8</td>
+              <td>11¾ - 12</td>
+              <td>13</td>
+              </tr>
+              </tbody>
+              </table></div>
+              </div>{% endif %}
+              {% if  product.title  == 'Ladies Big Mountain' or  product.title  == 'Ladies All-Mountain Performance' %}
+              <div class="sizing-chart">
+               <p>CALL US WITH ANY AND ALL SIZING QUESTIONS! <a class="tel" href="tel:303-530-3340">303-530-3340</a></p>
+              <h2>APEX SIZING CHARTS</h2> 
+              <h3>WOMEN</h3>
+              <div class="sizing-chart-tb-cont"><table>
+              <thead>
+              <tr>
+              <th>MONDO SIZE</th>
+              <th>CENTIMETERS</th>
+              <th>INCHES</th>
+              <th>SHOE SIZE<span>(average)</span></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>23</td>
+              <td>22.0 - 22.8</td>
+              <td>8½ - 8⅞</td>
+              <td>6</td>
+              </tr>
+              <tr>
+              <td>24</td>
+              <td>22.9 - 23.8</td>
+              <td>9 - 9⅜</td>
+              <td>7</td>
+              </tr>
+              <tr>
+              <td>25</td>
+              <td>23.9 - 24.8</td>
+              <td>9½ - 9¾</td>
+              <td>8</td>
+              </tr>
+              <tr>
+              <td>26</td>
+              <td>24.9 - 25.8</td>
+              <td>9⅞ - 10⅛</td>
+              <td>9</td>
+              </tr>
+              <tr>
+              <td>27</td>
+              <td>25.9 - 26.8</td>
+              <td>10¼ - 10½</td>
+              <td>10</td>
+              </tr>
+              </tbody>
+                </table></div>
+            </div></div>{% endif %}
+            {% comment %}<div class="step one open" id="step-one">
+
+              <h3><span>Step 1</span> Find your Apex size</h3>
+
+              <div class="step-content">
+
+                <p class="tip"><a href="#" data-toggle="modal" data-target="#measure-foot">How do I measure my foot?</a></p>
+                <p class="note"><strong>Foot length is in cm/in - not your shoe size!</strong><br>(11 1/4 in = 11.25)
+                  <a class="calculator">
+                    <span class="icon-calculator" aria-hidden="true"></span>
+                    <span class="calculations">
+                      <span>1/8 = 0.125</span>
+                      <span>1/4 = 0.250</span>
+                      <span>3/8 = 0.375</span>
+                      <span>1/2 = 0.500</span>
+                      <span>5/8 = 0.625</span>
+                      <span>3/4 = 0.750</span>
+                      <span>7/8 = 0.875</span>
+                    </span>
+                  </a>
+                </p>
+
+                <p class="item">
+                  <label for="foot-length">Foot Length</label>
+                  <input id="foot-length" name="foot-length" placeholder="Foot Length" value="" type="text">
+                </p>
+
+                <div class="item options-wrapper">
+                  <p class="option cm checker">
+                    <input id="cm-units" class="unit-selection" name="unit-option[]" value="cm" checked="" type="radio">
+                    <label for="cm-units" class="">centimeters</label>
+                  </p>
+
+                  <p class="option in checker">
+                    <input id="in-units" class="unit-selection" name="unit-option[]" value="inches" type="radio">
+                    <label for="in-units" class="">inches</label>
+                  </p>
+                </div>
+
+                <input id="product-series" name="product-series" value="X" type="hidden">
+
+                <p class="item button-wrapper"><a class="inpbtn button two-trigger disabled" href="#step-two">Get My Apex Size!</a></p>
+
+              </div>
+
+            </div>
+
+            <div class="step two" id="step-two">
+              <h3><span>Step 2</span> Your Apex size</h3>
+
+              <div class="step-content">
+                <p class="item">
+                  <label for="boot-size">Your Apex size is:</label>
+                  <input disabled="disabled" id="boot-size" name="boot-size" value="28" type="text">
+                </p>
+                <p class="item inline"><label>Based on foot-length of</label> <input disabled="disabled" id="boot-size-input" name="boot-size-input" value="11 inches" type="text"></p>
+                <p class="item button-wrapper"><a class="button three-trigger" href="#step-three">Continue</a></p>
+                <p class="item undo"><a class="close" href="#">Undo this step</a></p>
+              </div>
+            </div>
+
+            <div style="display:block;" class="step three" id="step-three">
+              <h3><span></span> Add to cart</h3>
+
+              <div class="step-content">
+
+
+
+
+                <div class="item inline">
+                  <label for="2574_configurable_0">size</label>
+                  <div class="styled configurable">
+                    
+                     <select name="id" id="ProductSelect" class="required product-single__variants no-js">
+                        {% for variant in product.variants %}
+                          {% if variant.available %}
+                            <option {% if variant == product.selected_or_first_available_variant %}
+                              selected="selected" {% endif %}
+                              data-sku="{{ variant.sku }}"
+                              value="{{ variant.id }}">
+                              {{ variant.title }} - {{ variant.price | money_with_currency }}
+                            </option>
+                          {% else %}
+                            <option disabled="disabled">
+                              {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                            </option>
+                          {% endif %}
+                        {% endfor %}
+                      </select>
+                    </div>
+                </div>
+
+                <div class="item inline">
+                      <label for="Quantity" class="product-single__quantity-label js-quantity-selector">{{ 'products.product.quantity' | t }}</label>
+                      <input type="number"  id="Quantity" name="quantity" value="1" min="1" class="qty js-quantity-selector" onfocus="clearText(this);">
+                </div>
+
+                <p class="item button-wrapper"><input class="button" name="add to cart" value="Add To Cart" type="submit"></p>
+				
+              </div>
+            </div>{% endcomment %}
+
+            <div class="step error-message" id="error-message" style="display: none">
+              <h3><span>Size Not Available</span></h3>
+              <div class="step-content">
+                <p>We apologize, your size is not available in our inventory at this time.</p>
+                <p>Please call <a class="tel" href="tel:303-530-3340">303-530-3340</a> and we will try and find you a pair through one of our retailers.</p>
+              </div>
+            </div>
+
+          </div><!-- [END] size-selector -->
+
+
+
+
+
+
+
+        </div><!-- [END] the-content -->
+      </div><!-- [END] product-detail -->
+      </div><!-- [END] product-detail -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="measure-foot" tabindex="-1" role="dialog" aria-labelledby="measure-footLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="measure-footLabel">How to measure your foot</h4>
+            </div>
+            <div class="modal-body">
+              <div class="iframe-wrapper"><iframe allowfullscreen="" src="https://www.youtube.com/embed/ZHVccrg13hY?rel=0" width="827" height="465"></iframe></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %}<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+            {% capture "form_classes" %}
+              product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
+            {%- endcapture %}
+
+            {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+
+              {% unless product.has_only_default_variant %}
+                {% for option in product.options_with_values %}
+                  <div class="radio-wrapper js product-form__item">
+                    <label class="single-option-radio__label{% if option.name == 'Default' or option.name == 'Title' %} hidden-label{% endif %}"
+                      for="ProductSelect-option-{{ forloop.index0 }}">
+                      {{ option.name | escape }}
+                    </label>
+                    {% if section.settings.product_selector == 'radio' %}
+                      <fieldset class="single-option-radio"
+                        name="{{ option.name | handleize }}"
+                        id="ProductSelect-option-{{ forloop.index0 }}">
+                        {% assign option_index = forloop.index %}
+                        {% for value in option.values %}
+                          {% assign variant_label_state = true %}
+                          {% if product.options.size == 1 %}
+                            {% unless product.variants[forloop.index0].available  %}
+                              {% assign variant_label_state = false %}
+                            {% endunless %}
+                          {% endif %}
+                          <input type="radio"
+                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                            value="{{ value | escape }}"
+                            data-index="option{{ option_index }}"
+                            name="{{ option.name | handleize }}"
+                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+                          <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                        {% endfor %}
+                      </fieldset>
+                    {% else %}
+                      <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                        {% for value in option.values %}
+                          <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
+                        {% endfor %}
+                      </select>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              {% endunless %}
+
+              <select name="id" id="ProductSelect" class="product-single__variants no-js">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option {% if variant == product.selected_or_first_available_variant %}
+                      selected="selected" {% endif %}
+                      data-sku="{{ variant.sku }}"
+                      value="{{ variant.id }}">
+                      {{ variant.title }} - {{ variant.price | money_with_currency }}
+                    </option>
+                  {% else %}
+                    <option disabled="disabled">
+                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+
+              {% if section.settings.quantity_enabled %}
+              <div class="product-single__quantity">
+                <label for="Quantity" class="product-single__quantity-label js-quantity-selector">{{ 'products.product.quantity' | t }}</label>
+                <input type="number" hidden="hidden" id="Quantity" name="quantity" value="1" min="1" class="js-quantity-selector">
+              </div>
+              {% endif %}
+
+              <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                  <span class="btn__text">
+                    {% if current_variant.available %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                  </span>
+                </button>
+                {% if section.settings.enable_payment_button %}
+                  {{ form | payment_button }}
+                {% endif %}
+              </div>{% endcomment %}
+            {% endform %}
+			
+		{% assign in_boots_collection = false %}
+				{% for collection in product.collections %}
+				  {% if in_boots_collection == false and collection.title == 'boots' %}
+					{% assign in_boots_collection = true %}
+				  {% endif %}
+				{% endfor %}
+				{% if in_boots_collection %}
+		<div id="write_review">
+		<div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}" data-description="{{ product.description | escape }}"></div>
+		</div>
+		{%endif%}
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="pswp__bg"></div>
+            <div class="pswp__scroll-wrap">
+                <div class="pswp__container">
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                </div>
+                <div class="pswp__ui pswp__ui--hidden">
+                    <div class="pswp__top-bar">
+                        <div class="pswp__counter"></div>
+                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                        <button class="pswp__button pswp__button--share" title="Share"></button>
+                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                        <div class="pswp__preloader">
+                            <div class="pswp__preloader__icn">
+                                <div class="pswp__preloader__cut">
+                                    <div class="pswp__preloader__donut"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div>
+                    </div>
+                    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                    <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+  </div><!-- [END] container -->
+</div>
+
+{%comment %}<script>
+  window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
+  window.KlarnaOnsiteService.push({
+    eventName: 'refresh-placements'
+  });
+</script>{% endcomment %}
+{% unless product.empty == empty %}
+  <script type="application/json" id="ProductJson-{{ section.id }}">
+    {{ product | json }}
+  </script>
+{% endunless %}
+{% schema %}
+  {
+    "name": {
+      "pt-BR": "Páginas de produtos",
+      "es": "Páginas de productos",
+      "de": "Produktseiten",
+      "it": "Pagine di prodotto",
+      "en": "Product pages",
+      "ja": "商品ページ",
+      "fr": "Pages de produits"
+    },
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "zoom_enable",
+        "label": {
+          "pt-BR": "Ative o zoom da imagem",
+          "es": "Habilitar zoom de imagen",
+          "de": "Aktivieren des Bildzooms",
+          "it": "Abilita lo zoom dell'immagine",
+          "en": "Enable image zoom",
+          "ja": "画像ズームを有効にする",
+          "fr": "Activer le zoom sur image"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_products",
+        "label": {
+          "pt-BR": "Habilite o compartilhamento de produtos",
+          "es": "Habilitar compartir productos",
+          "de": "Teilen von Produkten aktivieren",
+          "it": "Permetti condivisione del prodotto",
+          "en": "Enable product sharing",
+          "ja": "商品の共有を有効にする",
+          "fr": "Activer le partage de produits"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_vendor_enable",
+        "label": {
+          "pt-BR": "Exiba o fornecedor do produto",
+          "es": "Mostrar proveedor del producto",
+          "de": "Produktverkäufer anzeigen",
+          "it": "Indica fornitore prodotto",
+          "en": "Show product vendor",
+          "ja": "商品の販売元を表示する",
+          "fr": "Afficher le distributeur du produit"
+        }
+      },
+      {
+        "type": "select",
+        "id": "image_layout",
+        "label": {
+          "pt-BR": "Exibição de imagem",
+          "es": "Visualización de imagen",
+          "de": "Bildanzeige",
+          "it": "Visualizzazione immagine",
+          "en": "Image display",
+          "ja": "画像表示",
+          "fr": "Affichage de l'image"
+        },
+        "default": "stacked",
+        "options": [
+          {
+            "value": "stacked",
+            "label": {
+              "pt-BR": "Empilhado",
+              "es": "Stacked",
+              "de": "Gestapelt",
+              "it": "Elenco",
+              "en": "Stacked",
+              "ja": "スタックされました",
+              "fr": "Empiler"
+            }
+          },
+          {
+            "value": "thumbnails",
+            "label": {
+              "pt-BR": "Miniaturas",
+              "es": "Miniaturas",
+              "de": "Vorschaubilder",
+              "it": "Miniature",
+              "en": "Thumbnails",
+              "ja": "サムネイル",
+              "fr": "Vignettes"
+            }
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": {
+          "pt-BR": "Formulário de opções de produtos",
+          "es": "Formulario de opciones de producto",
+          "de": "Produktoptionsformular",
+          "it": "Modulo delle opzioni di prodotto",
+          "en": "Product options form",
+          "ja": "商品オプションのフォーム",
+          "fr": "Formulaire d'options de produit"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "quantity_enabled",
+        "label": {
+          "pt-BR": "Exibir seletor de quantidade",
+          "es": "Mostrar selector de cantidad",
+          "de": "Mengenauswahl anzeigen",
+          "it": "Mostra selettore di quantità",
+          "en": "Show quantity picker",
+          "ja": "数量ピッカーを表示する",
+          "fr": "Afficher le sélecteur de quantité"
+        }
+      },
+      {
+        "type": "select",
+        "id": "product_selector",
+        "label": {
+          "pt-BR": "Tipo de seletor",
+          "es": "Tipo de selector",
+          "de": "Auswahlart",
+          "it": "Tipo di selettore",
+          "en": "Picker type",
+          "ja": "ピッカーの種類",
+          "fr": "Type de sélecteur"
+        },
+        "options": [
+          {
+            "value": "radio",
+            "label": {
+              "pt-BR": "Botão",
+              "es": "Botón",
+              "de": "Schaltfläche",
+              "it": "Pulsante",
+              "en": "Button",
+              "ja": "ボタン",
+              "fr": "Bouton"
+            }
+          },
+          {
+            "value": "select",
+            "label": {
+              "pt-BR": "Menu suspenso",
+              "es": "Desplegable",
+              "de": "Dropdown",
+              "it": "Menu a tendina",
+              "en": "Dropdown",
+              "ja": "ドロップダウン",
+              "fr": "Menu déroulant"
+            }
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": {
+          "pt-BR": "Botão Adicionar ao carrinho",
+          "es": "Añadir al carrito",
+          "de": "Schaltfläche In den Warenkorb",
+          "it": "Pulsante \"Aggiungi al carrello\"",
+          "en": "Add to cart button",
+          "ja": "カートボタンに追加する",
+          "fr": "Bouton d'ajout au panier"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_button",
+        "label": {
+          "pt-BR": "Exibir botão dinâmico de finalização da compra",
+          "es": "Mostrar botón de pago dinámico",
+          "de": "Dynamischen Checkout-Button anzeigen",
+          "it": "Mostra pulsante di check-out dinamico",
+          "en": "Show dynamic checkout button",
+          "ja": "動的チェックアウトボタンを表示する",
+          "fr": "Afficher le bouton de passage à la caisse dynamique"
+        },
+        "info": {
+          "pt-BR": "Permite que os clientes finalizem os pedidos na hora usando um método de pagamento salvo. [Saiba mais](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "es": "Permite a los clientes pagar directamente usando un método de pago familiar. [Más información](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)",
+          "de": "Geben Sie Kunden die Möglichkeit, direkt mit einer vertrauten Zahlungsmethode auszuchecken. [Mehr Infos](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "it": "Fai in modo che i clienti effettuino il check-out direttamente utilizzando un metodo di pagamento a loro conosciuto. [Maggiori informazioni](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "en": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "ja": "使い慣れた決済方法を使用して、お客様に直接チェックアウトしてもらいましょう。[もっと詳しく](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "fr": "Permet aux clients de passer directement à la caisse en utilisant un moyen de paiement familier. [En savoir plus](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+        },
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "add_to_cart_button_size",
+        "label": {
+          "pt-BR": "Tamanho do botão",
+          "es": "Tamaño del botón",
+          "de": "Schaltflächengröße",
+          "it": "Dimensione pulsante",
+          "en": "Button size",
+          "ja": "ボタンのサイズ",
+          "fr": "Taille du bouton"
+        },
+        "default": "small",
+        "options": [
+          {
+            "value": "small",
+            "label": {
+              "pt-BR": "Pequeno",
+              "es": "Pequeña",
+              "de": "Klein",
+              "it": "Piccolo",
+              "en": "Small",
+              "ja": "小",
+              "fr": "Petit"
+            }
+          },
+          {
+            "value": "large",
+            "label": {
+              "pt-BR": "Grande",
+              "es": "grande",
+              "de": "Groß",
+              "it": "Grande",
+              "en": "Large",
+              "ja": "大",
+              "fr": "Grand"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

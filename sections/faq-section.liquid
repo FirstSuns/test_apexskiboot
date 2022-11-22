@@ -1,0 +1,62 @@
+{% if section.blocks.size > 0 %}
+<div class="white-container width">
+		<h2><span>{{ section.settings.heading }}</span></h2>		
+		<div class="testimonials-carousel">
+         {% for block in section.blocks %}
+			<div class="testimonial">
+				<h3>{{block.settings.faqtitle}}</h3>
+				<p>{{block.settings.faq_quote}}</p>
+			</div>
+          {% endfor %}
+		</div>
+	</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Faq Section",
+    "settings": [
+	  {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "What our customers are saying"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Slide",
+        "settings": [
+		  
+		  {
+            "type": "text",
+            "id": "faq_title",
+            "label": "Heading",
+            "default": "Fantastic quality at great prices"
+          },
+		  {
+            "type": "html",
+            "id": "faq_quote",
+            "label": "HTML",
+            "default": "<strong>Use HTML to format your text so it can be easily read.</strong> This text can be used to share information about your brand with customers."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Faq Section",
+        "settings": {
+        },
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

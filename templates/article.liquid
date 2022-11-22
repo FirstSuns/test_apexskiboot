@@ -1,0 +1,11 @@
+<!-- /templates/article.liquid -->
+{% comment %}
+  The contents of the article.liquid template can be found in /sections/article-template.liquid
+{% section 'article-template' %}{% endcomment %}
+{% if blog.title == 'video-gallery' %}
+	{% section 'article-video-gallery-template' %}
+{% elsif blog.title == 'The system' %}
+	{% section 'article-the-system-template' %}
+{% else %}
+	{% section 'article-template' %}
+{% endif %}

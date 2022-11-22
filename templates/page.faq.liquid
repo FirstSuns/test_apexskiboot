@@ -1,0 +1,71 @@
+<!-- /templates/page.liquid -->
+<div class="page-header" role="banner">		
+  <img src="{{'banner2.jpg' | asset_img_url:'1920x460'}}">
+  <div class="container">
+    <div class="the-content">
+      <h1>{{page.title}}</h1>
+    </div>
+  </div>
+</div>
+
+
+<div class="main-content" id="skip-to-content">
+  <div class="container" role="main">
+    <div class="the-content">
+      <div class="faq-category">
+        <h1 class="faq-category-title">General Boot Questions</h1>
+		{% for article in blogs.Faq.articles %}
+            {% if article.tags contains 'General Boot Questions' %}
+       			 <div class="faq" id="which-apex-ski-boot-model-is-best-for-me">
+                 <h3 class="faq-question"> {{ article.title }}</h3>
+                 <div class="faq-answer">{{ article.content }}</div></div>
+            {% endif %}
+        {% endfor %}
+        </div>
+      
+		<div class="faq-category">
+        <h1 class="faq-category-title">Boot Fit &amp; Sizing</h1>
+		{% for article in blogs.Faq.articles %}
+            {% if article.tags contains 'Boot Fit & Sizing' %}
+       			 <div class="faq" id="which-apex-ski-boot-model-is-best-for-me">
+                 <h3 class="faq-question"> {{ article.title }}</h3>
+                 <div class="faq-answer">{{ article.content }}</div></div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+      <div class="faq-category">
+        <h1 class="faq-category-title">Binding Compatability</h1>
+		{% for article in blogs.Faq.articles %}
+            {% if article.tags contains 'Binding Compatability' %}
+       			 <div class="faq" id="which-apex-ski-boot-model-is-best-for-me">
+                 <h3 class="faq-question"> {{ article.title }}</h3>
+                 <div class="faq-answer">{{ article.content }}</div></div>
+            {% endif %}
+        {% endfor %}
+      </div>
+     
+      
+       <div class="faq-category">
+        <h1 class="faq-category-title">Apex Ski Boot Locations and Demo Centers</h1>
+		{% for article in blogs.Faq.articles %}
+            {% if article.tags contains 'Apex Ski Boot Locations and Demo Centers' %}
+       			 <div class="faq" id="which-apex-ski-boot-model-is-best-for-me">
+                 <h3 class="faq-question"> {{ article.title }}</h3>
+                 <div class="faq-answer">{{ article.content }}</div></div>
+            {% endif %}
+        {% endfor %}
+      </div>
+	  <div class="faq-category">
+        <h1 class="faq-category-title">Warranty</h1>
+		{% for article in blogs.Faq.articles %}
+            {% if article.tags contains 'Warranty' %}
+       			 <div class="faq" id="which-apex-ski-boot-model-is-best-for-me">
+                 <h3 class="faq-question"> {{ article.title }}</h3>
+                 <div class="faq-answer">{{ article.content }}</div></div>
+            {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

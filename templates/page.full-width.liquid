@@ -1,0 +1,112 @@
+<!-- /templates/page.full-width.liquid -->
+<div class="main-content" id="skip-to-content">
+	<div class="container" role="main">
+		<div class="the-content" style="width: 100%;">
+  			{{ page.content }}</div>
+          {% if page.handle  == 'warranty' %}
+      
+       
+      <div class="the-content">
+            
+			{% form 'contact' %}
+      	{% comment %}
+     	 Successful message
+     	 {% endcomment %}
+      	{% if form.posted_successfully? %}
+        <p class="note form-success">
+          {{ 'contact.form.post_success' | t }}
+        </p>
+      {% endif %}
+      <div class="note form-errors">{{ form.errors | default_errors }}</div>
+
+       <div style="display:none"></div>
+        <div id="note"></div>
+        <div class="item">
+          <label for="ContactFormName" class="left" >{{ 'contact.form.name' | t }}<span class="required">*</span></label>
+          <input type="text" id="ContactFormName" class="input-full" name="contact[name]" placeholder="name" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required> 
+        </div>
+         <div class="item">
+           <label class="left" for="last_name"> Last Name<span class="required">*</span></label>
+           <input id="last_name" name="contact[last_name]" type="text" required>
+         </div>   
+
+        <div class="item">
+          <label for="ContactFormPhone" class="hidden-label">phone number</label>
+          <input type="tel" id="ContactFormPhone" class="input-full" name="contact[phone]" placeholder="phone" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" required>
+        </div>
+
+        <div class="item">
+          <label for="ContactFormEmail" class="hidden-label left">email<span class="required">*</span></label>
+          <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="email" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>              
+        </div>
+        <div class="item">
+          <label for="postalcode">Zip Code</label>
+          <input id="postalcode" name="contact[postalcode]"  type="number">
+        </div>
+         <div class="item">
+            <label for="product">Boot<span class="required">*</span></label>
+            <input id="product" name="contact[product]" type="text" required>
+        </div> 
+         <fieldset>
+           <div class="item">
+             <label for="boot_size">Boot Size</label>
+             <div class="styled">
+               <select name="contact[boot_size]" id="boot_size">
+                 <option value="0">--- Select ---</option>
+                 <option value="22">22</option>
+                 <option value="23">23</option>
+                 <option value="24">24</option>
+                 <option value="25">25</option>
+                 <option value="26">26</option>
+                 <option value="27">27</option>
+                 <option value="28">28</option>
+                 <option value="29">29</option>
+                 <option value="30">30</option>
+                 <option value="31">31</option>
+               </select>
+             </div>
+           </div>
+
+           <div class="item">
+             <label for="year_purchased">Year Purchased<span class="required">*</span></label>
+             <div class="styled">
+               <select name="contact[year_purchased]" id="year_purchased" required>
+                 <option value="0">--- Select ---</option>
+                 <option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option>										</select>
+             </div>
+           </div>
+        </fieldset>  
+         <div class="item">
+           <label class="left" for="bootfitter">Bootfitter</label>
+           <input id="bootfitter" name="contact[bootfitter]"  type="text">
+         </div> 
+          <div class="item">
+            <label class="left" for="purchase_location">Purchase Location</label>
+            <input id="purchase_location" name="contact[purchase_location]"  type="text">
+         </div>  
+        <p class="checker checkbox">
+          <input id="notify_me" name="notify_me" class="checkbox" value="yes" type="checkbox">
+          <label for="notify_me">Sign up to receive information &amp; special offers from Apex</label>
+        </p>
+
+
+        <div class="item">
+          <input  value="send" class="button" type="submit">
+        </div>
+
+        <div style="position:absolute; left: -1000em; overflow: hidden">
+          <label for="mysecretfield">This field is intended to catch out spammers - please leave it blank.</label>
+          <input name="mysecretfield" id="mysecretfield" autocomplete="off" type="text">
+        </div>
+       {% endform %}
+          </div>
+  
+      <aside class="sidebar" role="complementary"></aside>
+          {% endif %}                    
+
+	</div>
+</div>
+
+<script type="text/javascript">
+ $("#contact_form").validate();
+</script>

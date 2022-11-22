@@ -1,0 +1,83 @@
+<!-- /templates/article.liquid -->
+<div class="st-pusher"><div class="page-header" role="banner">
+    {% if article.image %}
+	<img src="{{ article | img_url: '1920x460' }}">
+	{% endif %}
+  	<div class="container">
+		<div class="the-content">
+			<h1>{{ article.title }}</h1>
+			<p>{{article.tags}}</p>
+		</div>
+	</div>
+</div>
+<nav class="section-nav">
+	<div class="container" role="navigation">
+		<label class="title trigger" for="menu-toggle">Sub Navigation</label>
+		<input id="menu-toggle" type="checkbox">
+		<ul class="sub">
+        {% for article_menu in blogs.the-system.articles  reversed   %}
+          <li class="{% if article_menu.title == article.title%} here {% endif %}"><a href="{{ article_menu.url }}">{{ article_menu.title }}</a></li>
+        {% endfor %}
+        </ul>
+	</div>
+</nav>
+{% if article.title == 'Ski Boot Myth Busting' %}  
+  <div class="main-content myth" id="skip-to-content">
+	<div class="container" role="main">
+  		{{ article.content }}
+	</div>
+</div>
+{% else %} 
+
+<div class="the-system-wrapper">
+  <div class="main-content" id="skip-to-content">
+  <div class="container " role="main">
+    {% if article.title == 'READ AND SHARE REVIEWS ABOUT APEX' %}
+    <div class="product_model_review">
+    	{% for product in collections["boots"].products %}
+    		{% include 'product-grid-item-review' with "all" %}
+  	 	{% endfor %}
+    </div>
+    {% endif %}
+    {{ article.content }}
+  </div>
+  </div>
+</div> 
+{% endif %}
+{% if article.excerpt !='' %}
+<div class="feature-wrapper">
+	<div class="container">
+      {{article.excerpt}}
+	</div>
+  </div></div>
+{% endif %}
+{% schema %}
+  {
+    "name": {
+      "pt-BR": "Páginas do artigo",
+      "es": "Páginas del artículo",
+      "de": "Artikelseiten",
+      "it": "Pagine articoli",
+      "en": "Article pages",
+      "ja": "記事ページ",
+      "fr": "Pages d'articles"
+    },
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "social_sharing_blog",
+        "label": {
+          "pt-BR": "Exibir botões de compartilhamento em redes sociais",
+          "es": "Mostrar botones para compartir en redes sociales",
+          "de": "Social-Sharing-Schaltflächen anzeigen",
+          "it": "Mostra i pulsanti per la condivisione sui social",
+          "en": "Show social sharing buttons",
+          "ja": "ソーシャル共有ボタンを表示する",
+          "fr": "Afficher les boutons de partage social"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+

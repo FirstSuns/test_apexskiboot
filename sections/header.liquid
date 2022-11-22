@@ -1,0 +1,548 @@
+<!-- begin site-nav -->
+			<a href="#skip-to-content" class="offscreen">Skip to Content</a>
+			<nav class="st-menu st-effect-1">
+              <div id="st-trigger-effects-2 close-st-trigger-effect">
+                 <button class="st-effect-close" data-effect="st-effect-2"><span class="screen-reader-text">Close Menu</span></button>
+              </div>
+              {% if section.settings.logo_max_width != blank %}
+                  {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
+                {% else %}
+                  {% assign image_size = "180x" %}
+                {% endif %}
+
+                {% if section.settings.logo-inverted and template.name == 'index' %}
+                  <a href="/" itemprop="url" class="brand">
+                    <img src="{{ section.settings.logo-inverted | img_url: image_size }}"
+                    srcset="{{ section.settings.logo-inverted | img_url: image_size }} 1x, {{ section.settings.logo-inverted | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ section.settings.logo-inverted.alt | default: shop.name }}"
+                    itemprop="logo">
+                  </a>
+                {% elsif section.settings.logo %}
+                  <a href="/collection/all" itemprop="url" class="brand">
+                     <img src="{{ section.settings.logo | img_url: image_size }}"
+                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                     alt="{{ section.settings.logo.alt | default: shop.name }}"
+                     itemprop="logo">
+                  </a>
+                {% else %}
+                  <a href="/" class="brand" itemprop="url"><img src="{{ 'logo.svg' | asset_url }}" alt="Apex Ski Boots" width="245"></a>
+                  {% comment %}{{ 'ajax-loader.gif' | asset_url | img_tag }}{% endcomment %}
+                {% endif %}
+              <ul>
+                {% for link in linklists.main-menu-mobile.links %}
+                  {% if link.links != blank %}
+                  {% assign parent_index = forloop.index %}
+                    <li
+                      class="has-children {% if link.active %}site-nav--active{% endif %}"
+                      aria-haspopup="true"
+                      data-meganav-type="parent">
+                      <a
+                        href="{{ link.url }}"
+                        class="site-nav__link"
+                        data-meganav-type="parent"
+                        aria-controls="MenuParent-{{ parent_index }}"
+                        aria-expanded="false"
+                        {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                          <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                      </a>
+                      <ul
+                        id="MenuParent-{{ parent_index }}"
+                        class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
+                        data-meganav-dropdown>
+                        {% for childlink in link.links %}
+                          {% if childlink.links != blank %}
+                          {% assign child_index = forloop.index %}
+                        
+                            <li
+                              class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
+                              aria-haspopup="true">
+                              <a
+                                href="{{ childlink.url }}"
+                                class="site-nav__dropdown-link"
+                                aria-controls="MenuChildren-{{ parent_index }}-{{ child_index }}"
+                                data-meganav-type="parent"
+                                {% unless template.name == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}
+                                tabindex="-1">
+                                  {{ childlink.title | escape }}
+                                  <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                              </a>
+                              <div class="site-nav__dropdown-grandchild">
+                                <ul
+                                  id="MenuChildren-{{ parent_index }}-{{ child_index }}"
+                                  data-meganav-dropdown>
+                                  {% for grandchildlink in childlink.links %}
+                                    <li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
+                                      <a
+                                        href="{{ grandchildlink.url }}"
+                                        class="site-nav__dropdown-link"
+                                        data-meganav-type="child"
+                                        {% unless template.name == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
+                                        tabindex="-1">
+                                          {{ grandchildlink.title | escape }}
+                                        </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                            </li>
+                          {% else %}
+                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                              <a
+                                href="{{ childlink.url }}"
+                                class="site-nav__dropdown-link"
+                                data-meganav-type="child"
+                                {% if childlink.active %}aria-current="page"{% endif %}
+                                tabindex="-1">
+                                  {{ childlink.title | escape }}
+                              </a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
+                      <a
+                        href="{{ link.url }}"
+                        class="site-nav__link"
+                        data-meganav-type="child"
+                        {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+			</nav>	
+<div class="st-pusher">
+<header class="masthead">
+	<div class="account-nav" role="menu">
+		<div class="account-nav-bg"></div>
+              <ul class="container">
+                <li><a href="{{ shop.secure_url }}/pages/contact-us">Contact</a></li>
+                <li><a href="/cart">Cart ({{ cart.item_count }})</a></li>
+                <li><a href="/account">My Account</a></li>
+                <li class="support custom-link"><a href="{{ shop.secure_url }}/pages/warranty">Exchange-Return-Warranty Info</a></li>
+                <li class="account custom-link"><a href="/account"><span class="screen-reader-text">My Account</span></a></li>
+                <li class="cart custom-link"><a href="/cart"><span class="screen-reader-text">Cart</span> <span class="items">({{ cart.item_count }})</span></a></li>
+             </ul>  	
+		</div>
+        <div id="st-trigger-effects">
+          <button data-effect="st-effect-1"><span class="screen-reader-text">Open Menu</span></button>
+          <a href="#" class="main-nav-feature 1234 mobile_shop_menu"><span>Shop</span>
+          </a>
+			<ul class="site-nav__dropdown show_mobile_shop_menu" data-meganav-dropdown="" style="display:none">
+                            <li>
+                              <a href="/collections/boots" class="site-nav__dropdown-link" data-meganav-type="child" tabindex="-1">
+                                 Boots
+                              </a>
+                            </li>
+							 <li>
+                              <a href="/collections/apparel" class="site-nav__dropdown-link" data-meganav-type="child" tabindex="-1">
+                                 Apparel
+                              </a>
+                            </li>
+					</ul>
+          <ul>
+            <li><a href="{{ shop.secure_url }}/pages/contact-us">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27px" height="17px" viewBox="0 0 27 17"><path d="M4.2,2.2C5.6,3.5,8,5.6,9.4,7l0.4,0.4L10,7.5l1.5,1.4c0.3,0.2,0.6,0.4,0.9,0.5c0.3,0.1,0.7,0.2,1,0.2 c0.4,0,0.8-0.1,1.2-0.3c0.3-0.1,0.5-0.3,0.7-0.5l0.9-0.8l0.8-0.8v0L17.6,7c1.4-1.3,3.8-3.5,5.3-4.8l2.1-1.9c0,0,0.1-0.1,0.1-0.1 c-0.3-0.1-0.6-0.2-1-0.2H2.9C2.6,0,2.3,0.1,2,0.2c0,0,0.1,0.1,0.1,0.1L4.2,2.2z M8.1,9l0.3-0.2L8.1,8.5C6.6,7.2,4.2,5,2.8,3.7 L0.7,1.8C0.6,1.7,0.5,1.6,0.4,1.5C0.2,1.9,0,2.4,0,2.9v11.1c0,0.6,0.2,1.2,0.6,1.7c0,0,0.1-0.1,0.1-0.1l2.1-1.9 C4.2,12.4,6.6,10.3,8.1,9z M17.6,10.5l-0.4-0.4l0,0l-0.3,0.3c-0.1,0.1-0.3,0.2-0.4,0.3c-0.6,0.4-1.2,0.7-1.9,0.8 c-0.4,0.1-0.7,0.1-1.1,0.1c-0.6,0-1.3-0.1-1.9-0.4c-0.5-0.2-1-0.5-1.5-0.9l-0.3-0.3l-0.4,0.4c-1.4,1.3-3.8,3.5-5.3,4.8l-1.9,1.7 C2.5,17,2.7,17,2.9,17h21.1c0.2,0,0.4,0,0.6-0.1l-1.9-1.7C21.4,13.9,19,11.8,17.6,10.5z M26.6,1.5c-0.1,0.1-0.2,0.2-0.3,0.3 l-2.1,1.9c-1.4,1.3-3.8,3.5-5.3,4.8l-0.3,0.2L18.9,9c1.4,1.3,3.8,3.5,5.3,4.8l2.1,1.9c0,0,0.1,0.1,0.1,0.1c0.3-0.5,0.6-1.1,0.6-1.7 V2.9C27,2.4,26.8,1.9,26.6,1.5z"></path></svg>
+              </a></li>
+            <li><a href="/account">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26px" height="24px" viewBox="0 0 26 24"><path d="M20.7,17.6c-2.2-0.8-4.1-1.5-4.3-2.3c-0.2-0.8,0.3-1.2,1.1-2.2c1.2-1.6,2-3.8,2-6C19.5,2.8,16.6,0,13,0 S6.5,2.8,6.5,7.1c0,2.2,0.8,4.4,2,6c0.8,1,1.3,1.5,1.1,2.2c-0.2,0.8-2.2,1.5-4.3,2.3C3.2,18.4,0,19.9,0,22.7V24h26v-1.3 C26,19.9,22.8,18.4,20.7,17.6z"></path></svg>
+              </a></li>
+            <li><a href="/cart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="25px" viewBox="0 0 28 25"><path d="M27,7.5c-0.1,0-0.3,0-0.4,0L9.5,5.8l-0.7-3C8.6,2.4,8.3,2,7.8,1.9L2.6,0.2C2.3,0.1,2.1,0,1.8,0 C0.8,0,0,0.8,0,1.8c0,1,0.8,1.8,1.8,1.8c0.5,0,0.9-0.2,1.2-0.4c0.8-0.8,3,0.2,3.3,1.1c0.3,0.9,2.6,11.1,3,12.8 c0.2,0.7,0.7,2.5,1.4,3.7c-0.4,0.5-0.7,1.1-0.7,1.8c0,1.4,1.2,2.6,2.6,2.6c1.4,0,2.5-1,2.6-2.4h5.6C20.8,24,22,25,23.3,25 c1.4,0,2.6-1.2,2.6-2.6c0-1.4-1.2-2.6-2.6-2.6c-0.8,0-1.5,0.3-1.9,0.9c0,0,0,0,0,0c-1,0-5,0-6.8,0c-0.5-0.5-1.2-0.9-1.9-0.9 c-0.1,0-0.2,0-0.3,0c-0.3-0.5-0.6-1.1-0.6-1.8H25c0.6,0,1.1-0.4,1.3-1L28,9.1C28.1,8.4,27.7,7.7,27,7.5z M23.3,21.4c0.6,0,1,0.5,1,1 c0,0.6-0.5,1-1,1c-0.6,0-1-0.5-1-1C22.3,21.9,22.8,21.4,23.3,21.4z M13.6,22.4c0,0.6-0.5,1-1,1c-0.6,0-1-0.5-1-1c0-0.6,0.5-1,1-1 C13.2,21.4,13.6,21.9,13.6,22.4z M13.3,14.9c0,0.4-0.3,0.6-0.6,0.6h-0.1c-0.4,0-0.7-0.3-0.8-0.6l-0.3-1.4C11.4,13.3,11.7,13,12,13 h0.7c0.4,0,0.6,0.3,0.6,0.6V14.9z M13.3,11c0,0.4-0.3,0.6-0.6,0.6h-1c-0.4,0-0.7-0.3-0.8-0.6l-0.5-1.9c-0.1-0.3,0.1-0.6,0.5-0.6 l1.8,0.2c0.4,0,0.6,0.3,0.6,0.7V11z M17.6,14.9c0,0.4-0.3,0.6-0.6,0.6h-1.6c-0.4,0-0.6-0.3-0.6-0.6v-1.3c0-0.4,0.3-0.6,0.6-0.6h1.6 c0.4,0,0.6,0.3,0.6,0.6V14.9z M17.6,11c0,0.4-0.3,0.6-0.6,0.6h-1.6c-0.4,0-0.6-0.3-0.6-0.6V9.5c0-0.4,0.3-0.6,0.6-0.6l1.6,0.1 c0.4,0,0.6,0.3,0.6,0.7V11z M21.8,14.9c0,0.4-0.3,0.6-0.6,0.6h-1.6c-0.4,0-0.6-0.3-0.6-0.6v-1.3c0-0.4,0.3-0.6,0.6-0.6h1.6 c0.4,0,0.6,0.3,0.6,0.6V14.9z M21.8,11c0,0.4-0.3,0.6-0.6,0.6h-1.6c-0.4,0-0.6-0.3-0.6-0.6V9.9c0-0.4,0.3-0.6,0.6-0.6l1.6,0.1 c0.3,0,0.6,0.3,0.6,0.7V11z M24.7,13.6L24.4,15c-0.1,0.3-0.4,0.6-0.7,0.6c-0.3,0-0.6-0.3-0.6-0.6v-1.3c0-0.4,0.3-0.6,0.6-0.6h0.4 C24.5,13,24.7,13.3,24.7,13.6z M25.3,10.5L25.2,11c-0.1,0.3-0.4,0.6-0.8,0.6h-0.7c-0.4,0-0.6-0.3-0.6-0.6v-0.7 c0-0.4,0.3-0.6,0.6-0.6l1,0.1C25.1,9.9,25.3,10.2,25.3,10.5z"></path></svg>
+              <span class="count">{{ cart.item_count }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+				<div class="container" role="navigation">
+				{% if section.settings.logo_max_width != blank %}
+                  {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
+                {% else %}
+                  {% assign image_size = "180x" %}
+                {% endif %}
+
+                {% if section.settings.logo-inverted and template.name == 'index' %}
+                  <a href="/" itemprop="url" class="brand">
+                    <img src="{{ section.settings.logo-inverted | img_url: image_size }}"
+                    srcset="{{ section.settings.logo-inverted | img_url: image_size }} 1x, {{ section.settings.logo-inverted | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ section.settings.logo-inverted.alt | default: shop.name }}"
+                    itemprop="logo">
+                  </a>
+                {% elsif section.settings.logo %}
+                  <a href="/" itemprop="url" class="brand">
+                     <img src="{{ section.settings.logo | img_url: image_size }}"
+                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                     alt="{{ section.settings.logo.alt | default: shop.name }}"
+                     itemprop="logo">
+                  </a>
+                {% else %}
+                  <a href="/" class="brand" itemprop="url"><img src="{{ 'logo.svg' | asset_url }}" alt="Apex Ski Boots" width="308"></a>
+                  {% comment %}{{ 'ajax-loader.gif' | asset_url | img_tag }}{% endcomment %}
+                {% endif %}
+				<!-- begin site-nav -->
+			<nav id="main-nav">
+              <ul class="site-nav" id="AccessibleNav">
+                {% for link in linklists[section.settings.main_menu_link_list].links %}
+                  {% if link.links != blank %}
+                  {% assign parent_index = forloop.index %}
+                    <li
+                      class="site-nav__item has-children {% if link.active %}site-nav--active{% endif %}"
+                      aria-haspopup="true"
+                      data-meganav-type="parent">
+                      <a
+                        href="{{ link.url }}"
+                        class="site-nav__link"
+                        data-meganav-type="parent"
+                        aria-controls="MenuParent-{{ parent_index }}"
+                        aria-expanded="false"
+                        {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                          <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                      </a>
+                      <ul
+                        id="MenuParent-{{ parent_index }}"
+                        class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
+                        data-meganav-dropdown>
+                        {% for childlink in link.links %}
+                          {% if childlink.links != blank %}
+                          {% assign child_index = forloop.index %}
+                            <li
+                              class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
+                              aria-haspopup="true">
+                              <a
+                                href="{{ childlink.url }}"
+                                class="site-nav__dropdown-link"
+                                aria-controls="MenuChildren-{{ parent_index }}-{{ child_index }}"
+                                data-meganav-type="parent"
+                                {% unless template.name == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}
+                                tabindex="-1">
+                                  {{ childlink.title | escape }}
+                                  <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                              </a>
+                              <div class="site-nav__dropdown-grandchild">
+                                <ul
+                                  id="MenuChildren-{{ parent_index }}-{{ child_index }}"
+                                  data-meganav-dropdown>
+                                  {% for grandchildlink in childlink.links %}
+                                    <li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
+                                      <a
+                                        href="{{ grandchildlink.url }}"
+                                        class="site-nav__dropdown-link"
+                                        data-meganav-type="child"
+                                        {% unless template.name == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
+                                        tabindex="-1">
+                                          {{ grandchildlink.title | escape }}
+                                        </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                            </li>
+                          {% else %}
+                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                              <a
+                                href="{{ childlink.url }}"
+                                class="site-nav__dropdown-link"
+                                data-meganav-type="child"
+                                {% if childlink.active %}aria-current="page"{% endif %}
+                                tabindex="-1">
+                                  {{ childlink.title | escape }}
+                              </a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
+                      <a
+                        href="{{ link.url }}"
+                        class="site-nav__link"
+                        data-meganav-type="child"
+                        {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+				
+			 <li class="site-nav__item has-children " aria-haspopup="true" data-meganav-type="parent">
+                      <a href="javaScript:void(0)" class="site-nav__link main-nav-feature 1234" data-meganav-type="parent" aria-controls="MenuParent-1" aria-expanded="false" tabindex="">
+                          <span>Shop</span>
+                      </a>
+					<ul class="site-nav__dropdown" data-meganav-dropdown="">
+                            <li>
+                              <a href="/collections/boots" class="site-nav__dropdown-link" data-meganav-type="child" tabindex="-1">
+                                 Boots
+                              </a>
+                            </li>
+							 <li>
+                              <a href="/collections/apparel" class="site-nav__dropdown-link" data-meganav-type="child" tabindex="-1">
+                                 Apparel
+                              </a>
+                            </li>
+					</ul>
+               </li>
+			</nav>	
+
+				</div>
+			</header></div>
+			<script>
+				jQuery('.mobile_shop_menu').on( "click", function() {
+					jQuery(".show_mobile_shop_menu").toggle();
+				}); 
+			</script>
+
+{% schema %}
+  {
+    "name": {
+      "pt-BR": "Cabeçalho",
+      "es": "Encabezado",
+      "de": "Header",
+      "it": "header",
+      "en": "Header",
+      "ja": "ヘッダー",
+      "fr": "En-tête"
+    },
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_menu_link_list",
+        "label": {
+          "pt-BR": "Menu",
+          "es": "Menú",
+          "de": "Menü",
+          "it": "Menu",
+          "en": "Menu",
+          "ja": "メニュー",
+          "fr": "Menu"
+        },
+        "default": "main-menu",
+        "info": {
+          "pt-BR": "A navegação ficará oculta em um botão de menu se os links forem muito longos. [Saiba mais](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)",
+          "es": "La navegación colapsará en un botón de menú si los enlaces son demasiado largos. [Más información](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)",
+          "de": "Wenn Links zu lang sind, wird die Navigation eingeklappt und als Menü-Schaltfläche angezeigt. [Mehr Infos](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)",
+          "it": "La navigazione si riducerà a un pulsante menu se i link sono troppo lunghi. [Maggiori informazioni](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)",
+          "en": "The navigation will collapse into a menu button if links are too long. [Learn more](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)",
+          "ja": "リンクが長すぎる場合、ナビゲーションがメニューボタンに折り畳まれます。[もっと詳しく](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)",
+          "fr": "La navigation sera réduite à un bouton de menu si les liens sont trop longs. [En savoir plus](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": {
+          "pt-BR": "Logotipo",
+          "es": "Logo",
+          "de": "Logo",
+          "it": "Logo",
+          "en": "Logo",
+          "ja": "ロゴ",
+          "fr": "Logo"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "logo-inverted",
+        "label": {
+          "pt-BR": "Logotipo da página inicial",
+          "es": "Logotipo de la página de inicio",
+          "de": "Startseitenlogo",
+          "it": "Logo della home page",
+          "en": "Home page logo",
+          "ja": "ホームページのロゴ",
+          "fr": "Logo de la page d'accueil"
+        },
+        "info": {
+          "pt-BR": "Exibido em slides",
+          "es": "Mostrado en diapositivas",
+          "de": "In Slideshow anzeigen",
+          "it": "Mostrato sulla presentazione",
+          "en": "Shown on slideshow",
+          "ja": "スライドショーに表示する",
+          "fr": "Affiché sur le diaporama"
+        }
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": {
+          "pt-BR": "Largura do logotipo personalizado (em pixels)",
+          "es": "Ancho del logotipo personalizado (en píxeles)",
+          "de": "Benutzerdefinierte Logobreite (Pixel)",
+          "it": "Larghezza logo personalizzato (in pixel)",
+          "en": "Custom logo width (in pixels)",
+          "ja": "ロゴの幅をカスタムする（ピクセルで）",
+          "fr": "Largeur personnalisée du logo (en pixels)"
+        },
+        "default": {
+          "pt-BR": "180",
+          "es": "180",
+          "de": "180",
+          "it": "180",
+          "en": "180",
+          "ja": "180",
+          "fr": "180"
+        }
+      },
+      {
+        "type": "select",
+        "id": "search",
+        "options": [
+          {
+            "value": "modal",
+            "label": {
+              "pt-BR": "Modal",
+              "es": "Modal",
+              "de": "Modal",
+              "it": "Modal",
+              "en": "Modal",
+              "ja": "モーダル",
+              "fr": "Fenêtre modale"
+            }
+          },
+          {
+            "value": "page",
+            "label": {
+              "pt-BR": "Página",
+              "es": "Página",
+              "de": "Seite",
+              "it": "Pagina",
+              "en": "Page",
+              "ja": "ページ",
+              "fr": "Page"
+            }
+          },
+          {
+            "value": "none",
+            "label": {
+              "pt-BR": "Nenhum",
+              "es": "Ninguno",
+              "de": "Keine",
+              "it": "Nessuno",
+              "en": "None",
+              "ja": "なし",
+              "fr": "Aucun"
+            }
+          }
+        ],
+        "label": {
+          "pt-BR": "Tipo de pesquisa",
+          "es": "Tipo de búsqueda",
+          "de": "Suchtyp",
+          "it": "Tipo di ricerca",
+          "en": "Search type",
+          "ja": "検索タイプ",
+          "fr": "Type de recherche"
+        }
+      },
+      {
+        "type": "header",
+        "content": {
+          "pt-BR": "Barra de anúncio",
+          "es": "Barra de anuncios",
+          "de": "Ankündigungsleiste",
+          "it": "Barra degli annunci",
+          "en": "Announcement bar",
+          "ja": "告知バー",
+          "fr": "Barre d'annonces"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": {
+          "pt-BR": "Exibir anúncio",
+          "es": "Mostrar anuncio",
+          "de": "Ankündigung anzeigen",
+          "it": "Mostra annuncio",
+          "en": "Show announcement",
+          "ja": "告知を表示する",
+          "fr": "Afficher l'annonce"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "home_page_only",
+        "label": {
+          "pt-BR": "Apenas página inicial",
+          "es": "Solo página de inicio",
+          "de": "Nur Startseite",
+          "it": "Solo home page",
+          "en": "Home page only",
+          "ja": "ホームページのみ",
+          "fr": "Page d'accueil uniquement"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "text",
+        "label": {
+          "pt-BR": "Texto",
+          "es": "texto",
+          "de": "Text",
+          "it": "Testo",
+          "en": "Text",
+          "ja": "テキスト",
+          "fr": "Texte"
+        },
+        "default": {
+          "pt-BR": "Anuncie algo aqui",
+          "es": "Anuncia algo aquí",
+          "de": "Hier Ankündigung platzieren",
+          "it": "Annuncia qualcosa qui",
+          "en": "Announce something here",
+          "ja": "ここで告知してください",
+          "fr": "Annoncer quelque chose ici"
+        }
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": {
+          "pt-BR": "Link",
+          "es": "Enlace",
+          "de": "Link",
+          "it": "Link",
+          "en": "Link",
+          "ja": "リンク",
+          "fr": "Lien"
+        }
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": {
+          "pt-BR": "Barra",
+          "es": "Barra",
+          "de": "Leiste",
+          "it": "Barra",
+          "en": "Bar",
+          "ja": "バー",
+          "fr": "Barre"
+        },
+        "default": "#1c1d1d"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": {
+          "pt-BR": "Texto",
+          "es": "texto",
+          "de": "Text",
+          "it": "Testo",
+          "en": "Text",
+          "ja": "テキスト",
+          "fr": "Texte"
+        },
+        "default": "#fff"
+      }
+    ]
+  }
+{% endschema %}

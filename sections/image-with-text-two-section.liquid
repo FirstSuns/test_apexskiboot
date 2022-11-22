@@ -1,0 +1,150 @@
+<div class="system"><div class="container">
+{{ section.settings.section_heading }}
+<div class="section setion-left-content">
+<div class="the-content">
+{{ section.settings.text1 }}
+<a href="{{ section.settings.button_link1 }}" class="btn-brand text-link">{{ section.settings.button_label1 | escape }}</a>
+</div>
+{% comment %}<img src="{{ section.settings.image1 | img_url: '300x300' }}" alt="Open-Chassis™">{% endcomment %}
+</div>
+<div class="section setion-middle-img"><img src="{{ section.settings.image1 | img_url: '1340x1340' }}" alt="Open-Chassis™"></div>
+<div class="section setion-right-content">
+<div class="the-content">
+{{ section.settings.text2 }}
+<a href="{{ section.settings.button_link2 }}" class="btn-brand text-link">{{ section.settings.button_label2 | escape }}</a>
+</div>
+{% comment %}<img src="{{ section.settings.image2 | img_url: '300x300' }}" alt="Walkable Boot">{% endcomment %}
+</div>
+</div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Image text 2 Part",
+      "fr": "Image avec texte"
+    },
+    "settings": [
+		{
+        "type": "textarea",
+        "id": "section_heading",
+        "label": {
+          "en": "Section Heading",       
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "<p>SAY HELLO TO HAPPY FEET.</p><p>The TWO-PART SKI BOOT SYSTEM</p>",
+          "fr": "<p>Associez un texte de grande taille à une image pour mettre en relief le produit, la collection ou l'article de blog de votre choix. Ajoutez des informations sur la disponibilité ou le style. Vous pouvez même fournir un avis.</p>"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": {
+          "en": "Image 1",
+          "fr": "Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title1",
+        "label": {
+          "en": "Heading 1",
+          "fr": "Titre"
+        },
+        "default": {
+          "en": "Image with text 1",
+          "fr": "Image avec texte"
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "text1",
+        "label": {
+          "en": "Text 1",
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review. 1</p>",
+          "fr": "<p>Associez un texte de grande taille à une image pour mettre en relief le produit, la collection ou l'article de blog de votre choix. Ajoutez des informations sur la disponibilité ou le style. Vous pouvez même fournir un avis.</p>"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label1",
+        "label": {
+          "en": "Button label 1",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link1",
+        "label": {
+          "en": "Button link 1",
+          "fr": "Lien du bouton"
+        }
+      },
+	  {
+        "type": "image_picker",
+        "id": "image2",
+        "label": {
+          "en": "Image 2",
+          "fr": "Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "title2",
+        "label": {
+          "en": "Heading 2",
+          "fr": "Titre"
+        },
+        "default": {
+          "en": "Image with text 2",
+         "fr": "Image avec texte"
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "text2",
+        "label": {
+          "en": "Text 2",
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+          "fr": "<p>Associez un texte de grande taille à une image pour mettre en relief le produit, la collection ou l'article de blog de votre choix. Ajoutez des informations sur la disponibilité ou le style. Vous pouvez même fournir un avis.</p>"
+        }
+      },
+      {
+        "type": "text",
+        "id": "button_label2",
+        "label": {
+          "en": "Button label 2",
+          "fr": "Texte du bouton"
+        }
+      },
+      {
+        "type": "url",
+        "id": "button_link2",
+        "label": {
+          "en": "Button link 2",
+           "fr": "Lien du bouton"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+         "en": "Image with text two Section",
+          "fr": "Image avec texte"
+        },
+        "category": {
+          "en": "Image",
+          "fr": "Image"
+        }
+      }
+    ]
+  }
+{% endschema %}

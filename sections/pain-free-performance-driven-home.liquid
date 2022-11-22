@@ -1,0 +1,172 @@
+<div class="products-wrapper">
+	<div class="container">
+		{{section.settings.section_heading}}
+		<div class="custom_section_home">
+			
+         
+          <div class="middle-img">
+            <img src="{{ section.settings.image | img_url: 'original' }}" usemap="#map">
+          </div>
+         
+          </div>
+			<div class="items">
+				{% for block in section.blocks %}
+					<a href="{{block.settings.button_link}}" class="product item"><h2>{{block.settings.heading_title}}</h2>
+<p>{{block.settings.sub_heading_title}}</p><span class="btn-brand">{{block.settings.button_label}}</span>
+				</a>{% endfor %}
+					<map name="map">
+						
+					</map>
+			</div>
+	</div>
+</div>
+<div class="featured-in custom_featured">
+	<div class="container" style="border-bottom: 1px solid #ccc; padding-bottom: 40px;">
+			<div class="section">
+				<div class="the-content">
+					<a href="/pages/where-to-try"><img src="https://cdn.shopify.com/s/files/1/0014/7115/2237/files/APXSKI_125_DEMO_CENTER_MAP_2020-21_v1.png?v=1601285806" width="355"></a>
+				</div>
+			</div>
+			<h2>It Couldn’t Be Easier to Try Before You Buy. Find a Demo Center Near You.</h2>
+			<a href="/pages/where-to-try" class="btn-brand">Find a Location</a>
+	</div>
+</div>
+<div class="featured-in">
+  <div class="container">
+    <div class="container-middle-sec">
+      <h2>Featured In</h2>
+      <div class="section">
+        <div class="the-content">
+         <ul>
+            <li><a href="https://www.bloomberg.com/news/articles/2017-01-04/this-ski-boot-takes-the-misery-out-of-carving"><img src="{{ 'logo_bloomberg.png' | asset_url}}"></a></li>
+            <li><a href="http://blog.dupontregistry.com/features/uncovered/dupont-registrys-gentlemens-best-2016/"><img src="{{ 'logo_dupont.png' | asset_url}}"></a></li>
+            <li><a href="http://freeskier.com/gear/apex-ski-boots-xp-big-mountain-boots-2017-2018"><img src="{{ 'logo_freeskier.png' | asset_url}}"></a></li>
+            <li><a href="http://www.menshealth.com/guy-wisdom/ski-and-boarding-gear/slide/16"><img src="{{ 'logo_menshealth.png' | asset_url}}"></a></li>
+            <li><a href="https://www.outsideonline.com/1856126/best-alpine-boots-2015#slide-2"><img src="{{ 'logo_outside.png' | asset_url}}logo_outside.png"></a></li>
+            <li><a href=""><img src="{{ 'logo_ski.png' | asset_url}}"></a></li>
+            <li><a href=""><img src="{{ 'logo_wsj.png' | asset_url}}"></a></li>
+           <li><a href=""><img src="{{ 'esquire-logo.png' | asset_url}}"></a></li>
+           <li><a href=""><img src="https://cdn.shopify.com/s/files/1/0014/7115/2237/files/LEON_black.png?v=1582878227"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %}<div class="testimonials-wrapper">
+	<div class="container">
+		<div class="testimonial item">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.85 38.84"><path fill="#ffffff" d="M0,15.11C0-3.47,19.26.32,19.26.32V7.37c-5.68-.17-5.85,3.78-5.85,5.68v4.47h2.06c2.58,0,4.82,1.38,4.82,4.64V33.68c0,3.44-1.72,5.16-4.82,5.16h-11C1,38.84,0,36.44,0,33.68Zm28.72,0C28.72-3.47,48,.32,48,.32V7.37c-5.68-.17-5.85,3.78-5.85,5.68v4.47H44.2c2.58,0,4.64,1.38,4.64,4.64V33.68q0,5.16-4.64,5.16h-11c-3.44,0-4.47-2.41-4.47-5.16Z"></path></svg>			
+			<p class="quote">These boots are absolutely incredible. Being a 25 year veteran ski patroller, I've been waiting for a ski boot like this that performs well and is comfortable at the same time.</p>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.85 38.84"><path fill="#ffffff" d="M0,5.16Q0,0,4.64,0h11c3.44,0,4.64,2.41,4.64,5.16V23.74C20.29,42.31.86,38.53.86,38.53V31.65c5.68.17,5.85-4,5.85-5.85V21.33H4.64C2.06,21.33,0,20,0,16.68Zm28.72,0Q28.72,0,33.37,0h11c3.44,0,4.47,2.41,4.47,5.16V23.74c0,18.58-19.26,14.79-19.26,14.79V31.65c5.68.17,5.85-4,5.85-5.85V21.33H33.37c-2.58,0-4.64-1.38-4.64-4.64Z"></path></svg>
+			<p><a href="blogs/the-system/submit-review" class="btn-brand">Read More</a></p>
+		</div>
+	</div>
+</div>
+<div class="featured-in home-review-section">
+  <div class="container">
+    <div class="container-middle-sec"><h2>REVIEWS</h2>
+     <script type="text/javascript"> (function e(){var e=document.createElement("script");e.type="text/javascript",e.async=!0, e.src="//staticw2.yotpo.com/SI30bWsG7sq5x11bEbrqi6ZKb5oVe9sOK7ZdZeUN/widget.js";var t=document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(e,t)})(); </script>
+<div id='yotpo-testimonials-custom-tab'></div>
+      <a class="view_more_review btn-brand" href="/blogs/the-system/submit-review">View More</a>
+</div></div></div>  {% endcomment %}    
+{% schema %}
+  {
+    "name": "Pain-Free. PD Home",
+    "settings": [
+	  {
+        "type": "textarea",
+        "id": "section_heading",
+        "label": "Section Heading",
+        "default": "<p>Pain-Free. Performance-Driven.</p><p>2017-2018 Apex Lineup</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "imageleft",
+        "label": {
+          "en": "Image left"
+        }
+      },
+      {
+			"type": "url",
+			"id": "button_link_left",
+			"label": {
+			  "en": "Button link left"			  
+			}
+		  },
+      {
+        "type": "image_picker",
+        "id": "imageright",
+        "label": {
+          "en": "Image right"
+        }
+      },
+      {
+			"type": "url",
+			"id": "button_link_right",
+			"label": {
+			  "en": "Button link right"			  
+			}
+		  },
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": {
+          "en": "Image"
+        }
+      }
+
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Slide",
+        "settings": [
+		  {
+            "type": "text",
+            "id": "heading_title",
+            "label": "Heading",
+            "default": "Fantastic quality at great prices"
+          },
+		  {
+            "type": "text",
+            "id": "sub_heading_title",
+            "label": "Sub Heading",
+            "default": "Fantastic quality at great prices"
+          },
+		  {
+			"type": "text",
+			"id": "button_label",
+			"label": {
+			  "en": "Button label"		  
+			}
+		  },
+		  {
+			"type": "url",
+			"id": "button_link",
+			"label": {
+			  "en": "Button link"			  
+			}
+		  }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Pain-Free. PD Home",
+        "settings": {
+        },
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+

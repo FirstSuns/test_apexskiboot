@@ -1,0 +1,85 @@
+<ul class="social-links">
+              {% if settings.social_facebook_link != blank %}
+                <li>
+                  <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+                    <span class="icon icon-facebook" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on facebook</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_twitter_link != blank %}
+                <li>
+                  <a href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+                    <span class="icon icon-twitter" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on twitter</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_pinterest_link != blank %}
+                <li>
+                  <a href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+                    <span class="icon icon-pinterest" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on Pinterest</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_instagram_link != blank %}
+                <li>
+                  <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+                    <span class="icon icon-instagram" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on Instagram</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_snapchat_link != blank %}
+                <li>
+                  <a href="{{ settings.social_snapchat_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+                    <span class="icon icon-snapchat" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on Snapchat</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_google_plus_link != blank %}
+                <li>
+                  <a href="{{ settings.social_google_plus_link | escape }}" rel="publisher" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+                    <span class="icon icon-google_plus" aria-hidden="true"></span>
+                    Google Plus<span class="screen-reader-text">Apex Ski Boots on Google Plus</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_tumblr_link != blank %}
+                <li>
+                  <a href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+                    <span class="icon icon-tumblr" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on Tumblr</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_youtube_link != blank %}
+                <li>
+                  <a href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+                    <span class="icon icon-youtube" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on youtube</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_vimeo_link != blank %}
+                <li>
+                  <a href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+                    <span class="icon icon-vimeo" aria-hidden="true"></span>
+                    <span class="screen-reader-text">Apex Ski Boots on Vimeo</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_fancy_link != blank %}
+                <li>
+                  <a href="{{ settings.social_fancy_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+                    <span class="icon icon-fancy" aria-hidden="true"></span>
+                    Fancy
+                  </a>
+                </li>
+              {% endif %}
+               <li><a href="https://www.linkedin.com/company/apex-ski-boots/" target="_blank">
+                <span class="icon icon-linkedin" aria-hidden="true"></span>
+                <span class="screen-reader-text">Apex Ski Boots on linkedin</span></a></li>
+            </ul>

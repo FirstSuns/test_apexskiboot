@@ -1,0 +1,155 @@
+
+
+   {% if collection.url == "/collections/boots" %}
+     
+     <script type="text/javascript">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/SI30bWsG7sq5x11bEbrqi6ZKb5oVe9sOK7ZdZeUN/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})(); </script>
+    {% endif %}
+
+<div class="footer global" id="footer">
+	<div class="container" role="contentinfo">
+		<div class="section social signup">
+			<h2 class="section-title">Be a Part of the Revolution!</h2>
+           {% include 'social-icons'%}
+			
+        <div class="subscriber_form_cont">
+          	<div class="klaviyo-form-QyC2M2"></div>
+               {% comment %}{% form 'contact' %}
+                {% if form.posted_successfully? %}
+                   <p class="form-success">
+                      {{ 'contact.form.post_success' | t }}
+                    </p>
+                  {% endif %}
+                {{ form.errors | default_errors }}
+				  <input type="hidden" name="contact[tags]" value="Apex Subscriber Network">
+                  <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email Address" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+                  <input type="submit" class="btn" value="Subscribe">
+                 {% endform %}{% endcomment %}
+		</div>
+		
+		</div>
+      <div class="section logo">
+		{% if section.settings.logo %}
+          <a href="/" itemprop="url">
+            <img src="{{ section.settings.logo | img_url: '332' }}"
+                 srcset="{{ section.settings.logo | img_url: '332' }} 1x, {{ section.settings.logo | img_url: '332', scale: 2 }} 2x"
+                 alt="{{ section.settings.logo.alt | default: shop.name }}"
+                 itemprop="logo">
+          </a>
+          {% else %}
+          <a href="/"  itemprop="url"><img src="{{ 'logo.svg' | asset_url }}" alt="Apex Ski Boots" width="332"></a>
+          {% comment %}{{ 'ajax-loader.gif' | asset_url | img_tag }}{% endcomment %}
+         {% endif %}
+		</div>
+
+		<div class="section awards">
+          {{section.settings.award_win_message}}
+			
+			<ul class="awards-wrapper">
+				<li class="award">
+					<a href="http://freeskier.com/gear/apex-ski-boots-xp-big-mountain-boots-2017-2018" class="award-image">
+                      <img src="{{ 'award_freeskier.png' | asset_url }}" data-original="{{ 'award_freeskier.png' | asset_url }}" data-hover="{{ 'award_freeskier_over.png' | asset_url }}">
+                  </a>
+				</li>
+				<li class="award">
+					<a href="https://www.skimag.com/gear/skis-showstopper-gear-sia-2016-1#&amp;gid=ci01fe1c47508f2590&amp;pid=apex-xp-series
+" class="award-image">
+                      <img src="{{ 'skimag.png' | asset_url }}" data-original="{{ 'skimag.png' | asset_url }}" data-hover="{{ 'skimag_over.png' | asset_url }}"></a>
+				</li>
+				<li class="award">
+					<a href="http://www.bootfitters.com/reviews/apex-xp" class="award-image">
+                      <img src="{{ 'innovator.png' | asset_url }}" data-original="{{ 'innovator.png' | asset_url }}" data-hover="{{ 'innovator_over.png' | asset_url }}"></a>
+				</li>
+				<li class="award">
+					<a href="http://www.bootfitters.com/reviews/apex-xp" class="award-image">
+                      <img src="{{ 'fitters.png' | asset_url }}" data-original="{{ 'fitters.png' | asset_url }}" data-hover="{{ 'fitters_over.png' | asset_url }}"></a>
+				</li>
+			</ul>
+		</div>
+
+	</div><!-- [END] container -->
+
+	<div class="sub-footer">
+		<div class="container" role="contentinfo">
+			<p class="legal">
+				<span>©2006 – 2020 Apex Ski Boots - All Rights Reserved.</span>
+				<span><a href="/pages/privacy-policy">Privacy &amp; Terms</a></span>
+				{% comment %}{% if customer  %}
+                  <a class="customer" href="/account">Retailer Login</a></p>
+                  {% else %}              
+						<a class="customer" href="/account/login">Retailer Login</a></p>
+                  {% endif %}{% endcomment %}
+				
+		</div>
+	</div>
+	{% comment %}<a href="/pages/popup" data-featherlight="ajax" data-featherlight-after-close="generalPopup()" style="display: none;" id="popup-general"></a>
+	<a href="/pages/popup-success" data-featherlight="ajax" style="display: none;" id="popup-general-success"></a>
+	<div class="featherlight-overlay"></div>{% endcomment %}
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+	//jQuery("#contact_form").validate();
+  });
+</script>
+{% schema %}
+  {
+    "name": {
+      "pt-BR": "Rodapé",
+      "es": "Pie de página",
+      "de": "Fußzeile",
+      "it": "Footer",
+      "en": "Footer",
+      "ja": "フッター",
+      "fr": "Pied de page"
+    },
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_link_list",
+        "label": {
+          "pt-BR": "Menu do rodapé",
+          "es": "Menú inferior",
+          "de": "Fußzeilenmenü",
+          "it": "Menu footer",
+          "en": "Footer menu",
+          "ja": "フッターメニュー",
+          "fr": "Menu pied de page"
+        },
+        "default": "footer"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": {
+          "pt-BR": "Logotipo",
+          "es": "Logo",
+          "de": "Logo",
+          "it": "Logo",
+          "en": "Logo",
+          "ja": "ロゴ",
+          "fr": "Logo"
+        }
+      },	
+
+      {
+         "type": "textarea",
+         "id": "award_win_message",
+         "default": "Welcome to my shop!",
+         "label": "Welcome message"
+      },
+	{
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": {
+          "pt-BR": "Mostrar ícones de pagamento",
+          "es": "Mostrar iconos de pago",
+          "de": "Zahlungssymbole anzeigen",
+          "it": "Mostra le icone di pagamento",
+          "en": "Show payment icons",
+          "ja": "支払いアイコンを表示する",
+          "fr": "Afficher les icônes de paiement"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,116 @@
+<!-- /templates/page.liquid -->
+{% if page.title =='The Drive Easy Apex Rebate' %}
+<div class="page-header" role="banner">
+  <img src="{{ 'rebate_1920x460.jpg' | asset_url }}">
+</div>
+{% else %}
+<div class="page-header" role="banner">			
+  <div class="container">
+    <div class="the-content">
+      <h1>
+       {% if page.title == 'Where to Buy' %} {{page.title}}
+        <a href="/pages/where-to-try" class="btn-brand">Where to Try</a>
+        {% else %}
+        {{page.title}}
+        <a href="/pages/where-to-buy" class="btn-brand">Where to Buy</a>
+        {% endif %}
+      </h1>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div class="main-content" id="skip-to-content">
+	<div class="container" role="main">
+      {% if page.title == 'Where to Buy' %}
+      	<div id="dealer-locator">
+<h1>Apex Authorized Dealers</h1>
+{% comment %}<div class="dealer-locator-nav">
+	<div class="dealer-show-all">
+		<a class="button button-usa" href="#" onclick="event.preventDefault();event.stopPropagation();showDealers('usa');">Show All US Dealers</a>
+		<a class="button button-int" href="#" onclick="event.preventDefault();event.stopPropagation();showDealers('int');">Show All International Dealers</a>
+	</div>
+	</div>
+{% section 'dealer-map' %}{% endcomment %}
+<div id="lifter-store-locator" data-map-id="1205">Loading store locator...</div>
+<script type="text/javascript" src="//client.lifterlocator.com/js/loader-v1.js?shop=apexskiboot.myshopify.com"></script>          
+ {% comment %}<iframe src="https://storelocator.online/store/iframe/5bb290cd163d910004fb7824" style="border:none;" width="100%" height="700" allow="geolocation"></iframe>         
+<div id="dealer-results-container">
+	<div class="result-nav">
+		<p class="result-status">Found <span id="result-count">125</span> store(s) | Displaying <span id="result-count-start">1</span> - <span id="result-count-end">16</span></p>		
+	</div>
+	{% section 'dealer-results1' %}
+    {% section 'dealer-results2' %}
+  	{% section 'dealer-results3' %}
+    {% section 'dealer-results4' %}
+  	{% section 'dealer-results5' %}
+    {% section 'dealer-results6' %}
+  	{% section 'dealer-results7' %}
+    {% section 'dealer-results8' %}
+    <p class="pagination bottom pagination-usa"><span>Page:</span><a href="javascript:void(0);" data-page="1"  class="active dealer-results-p">1</a> 
+<a href="javascript:void(0);" data-page="2"  class="dealer-results-p">2</a> 
+<a href="javascript:void(0);" data-page="3"  class="dealer-results-p">3</a> 
+<a href="javascript:void(0);" data-page="4"  class="dealer-results-p">4</a> 
+<a href="javascript:void(0);" data-page="5"  class="dealer-results-p">5</a> 
+<a href="javascript:void(0);" data-page="6"  class="dealer-results-p">6</a> 
+<a href="javascript:void(0);" data-page="7"  class="dealer-results-p">7</a> 
+<a href="javascript:void(0);" data-page="8"  class="dealer-results-p">8</a></p></div>
+          
+ <div id="dealer-int-results-container"> 
+   <div class="result-nav">
+		<p class="result-status">Found <span id="result-count">17</span> store(s) | Displaying <span id="result-int-count-start">1</span> - <span id="result-int-count-end">16</span></p>						
+	</div>
+   {% section 'dealer-int-results1' %}
+   {% section 'dealer-int-results2' %}
+  <p class="pagination bottom pagination-int"><span>Page:</span><a href="javascript:void(0);" data-page="1"  class="active dealer-int-results-p">1</a> 
+  <a href="javascript:void(0);" data-page="2"  class="dealer-int-results-p">2</a> 
+  </p>
+   
+ </div> {% endcomment %}
+          
+ </div>
+      {% else %}
+		{{page.content}}
+      {% endif %}
+	</div>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery('#dealer-results-container, .pagination-usa').show();
+    jQuery('#dealer-int-results-container, .pagination-int').hide();
+    jQuery('.dealer-show-all .button-usa').click(function(){
+    	jQuery('#dealer-results-container, .pagination-usa').show();
+       jQuery('#dealer-int-results-container, .pagination-int').hide();
+    });
+    jQuery('.dealer-show-all .button-int').click(function(){
+    	jQuery('#dealer-int-results-container, .pagination-int').show();
+        jQuery('#dealer-results-container, .pagination-usa').hide();
+    });
+    
+    jQuery('.dealer-results-p').click(function(){
+      var current_attr_id = jQuery(this).attr('data-page');
+      	jQuery('.dealer-results').hide();
+      	jQuery('.dealer-results-p').removeClass('active');
+    	jQuery(this).addClass('active');
+      	jQuery('#dealer-results'+current_attr_id).show();
+        var min_range_show = 16*(current_attr_id-1)+1;
+        var max_range_show = (16*current_attr_id);
+        jQuery('#result-count-start').text(min_range_show);
+        jQuery('#result-count-end').text(max_range_show);
+        //
+    });
+    
+    jQuery('.dealer-int-results-p').click(function(){
+      var current_attr_id = jQuery(this).attr('data-page');
+      	jQuery('.dealer-int-results').hide();
+      	jQuery('.dealer-results-p').removeClass('active');
+    	jQuery(this).addClass('active');
+      	jQuery('#dealer-int-results'+current_attr_id).show();
+        var min_range_show = 16*(current_attr_id-1)+1;
+        var max_range_show = (16*current_attr_id);
+        jQuery('#result-int-count-start').text(min_range_show);
+        jQuery('#result-int-count-end').text(max_range_show);
+        //
+    });
+  	
+  });       
+</script>      

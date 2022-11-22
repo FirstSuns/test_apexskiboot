@@ -1,0 +1,82 @@
+ <!-- /templates/page.contact.liquid -->
+{{page.content}}
+<div class="main-content" id="skip-to-content">
+  <div class="container" role="form">
+    <div class="the-content">
+      <noscript>JavaScript is disabled! You must have JavaScript enabled in order to fill out our form.</noscript>
+      <div class="intro">
+        <h2>Get in touch</h2>
+        <p>Feel free to contact us with any questions. One of our friendly staff members will be in contact with you very soon.</p>
+      </div>
+          {% form 'contact' %}
+      	{% comment %}
+     	 Successful message
+     	 {% endcomment %}
+      	{% if form.posted_successfully? %}
+        <p class="note form-success">
+          {{ 'contact.form.post_success' | t }}
+        </p>
+      {% endif %}
+      <div class="notes form-errors">{{ form.errors | default_errors }}</div>
+
+       <div style="display:none"></div>
+        <div id="note"></div>
+         <div class="item">
+          <label for="ContactFormReason">Reason for contact</label>
+          <div class="styled">
+            <select class="select" name="contact[reason]" id="ContactFormReason">
+              <option value="General">General</option>
+              <option value="Product">Product</option>
+              <option value="Media">Media</option>
+              <option value="Retailer">Retailer</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+         <div class="item">
+          <label for="ContactFormName" class="left" >{{ 'contact.form.name' | t }}<span class="required">*</span></label>
+          <input type="text" id="ContactFormName" class="input-full" name="contact[name]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required> 
+        </div>
+
+        <div class="item">
+          <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
+          <input type="tel" id="ContactFormPhone" class="input-full" name="contact[phone]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+        </div>
+
+        <div class="item">
+          <label for="ContactFormEmail" class="hidden-label left">{{ 'contact.form.email' | t }}<span class="required">*</span></label>
+          <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>              
+        </div>
+      
+        <div class="item">
+          <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}<span class="required">*</span></label>
+          <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}" required>{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+  <p class="checker checkbox">
+          <input id="notify_me" name="notify_me" class="checkbox" value="yes" type="checkbox">
+          <label for="notify_me">Sign up to receive information &amp; special offers from Apex</label>
+        </p>
+        <div class="item">
+          <input value="SEND" class="btn-common btn-yellow" type="submit">
+        </div>
+
+       
+       {% endform %}
+</div>
+
+    <aside class="sidebar" role="complementary">
+      <div class="contact-info">
+        <h3>Apex Ski Boots</h3>
+        <div class="contacts">
+          <p><strong>Phone:</strong> <a class="tel" href="tel:1+303-530-3340">303-530-3340</a></p>
+          <p class="location"><strong>Location:</strong><br><a href="https://goo.gl/maps/aKeSgQDQM862" target="_blank">3015 Youngfield St.<br>Suite 104<br>Golden, CO 80401</a></p>
+          <p><strong>Email:</strong> <a href="mailto:info@apexskiboots.com">info@apexskiboots.com</a></p>
+        </div>
+
+        <h3>Social Contacts</h3>
+        {% include 'social-icons'%}
+		</div>
+    </aside>
+  </div>
+</div>
